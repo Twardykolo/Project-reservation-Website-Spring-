@@ -10,10 +10,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(schema="projekty" ,name="pliki")
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
 @Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class File {
     @Id
     @GeneratedValue(generator = "uuid")

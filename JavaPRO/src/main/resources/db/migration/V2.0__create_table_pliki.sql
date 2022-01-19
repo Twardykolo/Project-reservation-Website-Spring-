@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS projekty.pliki CASCADE;
+
 CREATE TABLE projekty.pliki
 (
     id   VARCHAR(255) NOT NULL,
