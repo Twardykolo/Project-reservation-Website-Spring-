@@ -1,7 +1,7 @@
 package com.Adam.Lucja.JavaPRO.Service;
 
 import com.Adam.Lucja.JavaPRO.Repository.StudentRepository;
-import com.Adam.Lucja.JavaPRO.Repository.StudentResponse;
+import com.Adam.Lucja.JavaPRO.DTO.Response.StudentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

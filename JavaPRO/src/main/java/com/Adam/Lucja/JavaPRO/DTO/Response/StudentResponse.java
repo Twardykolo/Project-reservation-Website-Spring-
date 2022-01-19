@@ -1,4 +1,4 @@
-package com.Adam.Lucja.JavaPRO.Repository;
+package com.Adam.Lucja.JavaPRO.DTO.Response;
 
 import com.Adam.Lucja.JavaPRO.Entity.Student;
 import lombok.*;
