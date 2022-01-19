@@ -9,7 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name="pliki")
+@Table(schema="projekty" ,name="pliki")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

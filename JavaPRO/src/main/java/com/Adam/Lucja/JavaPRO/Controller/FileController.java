@@ -22,7 +22,7 @@ public class FileController {
     private FileService fileService;
 
     @PostMapping("/")
-    public ResponseEntity<MessageResponse> uploadFile(@RequestParam("file") MultipartFile file){
+    public ResponseEntity<MessageResponse> uploadFile(@RequestBody MultipartFile file){
         String message = "";
         try {
             fileService.saveFile(file);
