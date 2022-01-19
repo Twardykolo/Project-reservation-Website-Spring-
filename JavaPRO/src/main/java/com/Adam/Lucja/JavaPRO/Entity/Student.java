@@ -1,9 +1,7 @@
 package com.Adam.Lucja.JavaPRO.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
