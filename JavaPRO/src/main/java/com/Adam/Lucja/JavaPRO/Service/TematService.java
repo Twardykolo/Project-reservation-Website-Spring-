@@ -1,5 +1,6 @@
 package com.Adam.Lucja.JavaPRO.Service;
 
+import com.Adam.Lucja.JavaPRO.DTO.Request.TematRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Response.TematResponse;
 import com.Adam.Lucja.JavaPRO.Entity.Temat;
 import com.Adam.Lucja.JavaPRO.Repository.TematRepository;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TematService {
@@ -22,5 +22,15 @@ public class TematService {
             wynikFunkcji.add(new TematResponse(temat));
         }
         return wynikFunkcji;
+    }
+
+    public TematResponse createTemat(TematRequest tematRequest){
+        Temat temat = Temat.builder()
+                .name(tematRequest.getName())
+                .description(tematRequest.getDescription())
+                .isReserved(false).build();
+        Temat savedTemat = tematRepository.save(temat);
+        TematResponse zwrotka = new TematResponse(savedTemat);
+        return zwrotka;
     }
 }

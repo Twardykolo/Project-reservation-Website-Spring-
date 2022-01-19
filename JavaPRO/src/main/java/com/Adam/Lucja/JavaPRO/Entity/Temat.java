@@ -1,9 +1,7 @@
 package com.Adam.Lucja.JavaPRO.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Temat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
