@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+//MODEL
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

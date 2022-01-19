@@ -17,9 +17,9 @@ public class StudentService {
     private StudentRepository studentRepository;
     //Łatwiejszy zapis w pliku TematService.java
     public List<StudentResponse> getAllStudenty(){
-        return studentRepository.findAll().stream()
-                .map(StudentResponse::new)
-                .collect(Collectors.toList());
+        return studentRepository.findAll().stream() //wyciągnięcie z bazy danych za pomocą studentRepository
+                .map(StudentResponse::new) //przerobienie wyciągniętych danych na obiekty klasy StudentResponse
+                .collect(Collectors.toList()); //złapanie wszystkich przerobionych już obiektów do listy
     }
     public StudentResponse createStudent(StudentRequest studentRequest){
         Student student = Student.builder()
