@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(schema="projekty" ,name="projekty")
@@ -22,4 +23,10 @@ public class Projekt {
     @Column(nullable = false)
     private Timestamp deadline;
     private Double mark;
+    @OneToMany(mappedBy = "projekt", fetch = FetchType.EAGER)
+    private List<Projekt2Student> projekt2student;
+    @OneToOne(optional = false)
+    private File file;
+    @OneToOne(optional = false)
+    private Temat temat;
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(schema="projekty" ,name="studenci")
@@ -27,4 +28,6 @@ public class Student {
     private String email;
     @Column(unique = true, nullable = false)
     private String nrAlbum;
+    @OneToMany(mappedBy = "student")
+    private List<Projekt2Student> projekt2student;
 }
