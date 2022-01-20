@@ -58,7 +58,11 @@ public class FileController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<?> updateFile(@PathVariable String id,@RequestBody MultipartFile newFile){
-        File file = fileService.updateFile(id,newFile);
+        FileResponse file = fileService.updateFile(newFile, id);
+        String fileDownloadUri = ServletUriComponentsBuilder
+                .fromCurrentContextPath().path("/files/")
+                .path(id).toUriString();
+        file.setUrl(fileDownloadUri);
         return ResponseEntity.ok(file);
     }
     @DeleteMapping("/{id}")
