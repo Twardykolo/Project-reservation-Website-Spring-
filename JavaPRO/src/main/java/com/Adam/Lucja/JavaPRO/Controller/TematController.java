@@ -24,10 +24,13 @@ public class TematController {
     public ResponseEntity<TematResponse> getTemat(@PathVariable Long id){
         return ResponseEntity.ok(tematService.getTemat(id));
     }
+
     @PostMapping
     public ResponseEntity<TematResponse> createTemat(@RequestBody TematRequest tematRequest){
         return ResponseEntity.ok(tematService.createTemat(tematRequest));
-    }@PutMapping("{id}")
+    }
+
+    @PutMapping("{id}")
     public ResponseEntity<TematResponse> updateTemat(@PathVariable Long id,@RequestBody TematRequest tematRequest){
         return ResponseEntity.ok(tematService.updateTemat(id,tematRequest));
     }
@@ -36,5 +39,10 @@ public class TematController {
     public ResponseEntity<?> deleteTemat(@PathVariable Long id){
         tematService.deleteTemat(id);
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("zarezerwuj/{id}")
+    public ResponseEntity<?> rezerwujTemat(@PathVariable Long id,@RequestParam Long studentId){
+        return ResponseEntity.ok(tematService.rezerwujTemat(id,studentId));
     }
 }
