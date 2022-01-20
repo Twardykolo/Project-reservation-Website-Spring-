@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 //Pośrednik między bazą danych, a serwisem
 @Repository
 public interface StudentRepository extends JpaRepository<Student,String> {
+    public Student getById(Long id);
 }

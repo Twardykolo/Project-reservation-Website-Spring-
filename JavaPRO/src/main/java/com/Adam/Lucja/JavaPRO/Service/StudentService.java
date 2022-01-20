@@ -21,6 +21,10 @@ public class StudentService {
                 .map(StudentResponse::new) //przerobienie wyciągniętych danych na obiekty klasy StudentResponse
                 .collect(Collectors.toList()); //złapanie wszystkich przerobionych już obiektów do listy
     }
+    public StudentResponse getStudent(Long id){
+        Student student = studentRepository.getById(id);
+        return new StudentResponse(student);
+    }
     public StudentResponse createStudent(StudentRequest studentRequest){
         Student student = Student.builder()
                 .name(studentRequest.getName())
@@ -32,5 +36,20 @@ public class StudentService {
         Student savedStudent = studentRepository.save(student);
         StudentResponse zwrotka = new StudentResponse(savedStudent);
         return zwrotka;
+    }
+    public StudentResponse updateStudent (StudentRequest studentRequest, Long id){
+        Student student = studentRepository.getById(id);
+        student.setName(studentRequest.getName());
+        student.setSurname(studentRequest.getSurname());
+        student.setPassword(studentRequest.getPassword());
+        student.setEmail(studentRequest.getEmail());
+        student.setNrAlbum(studentRequest.getNrAlbum());
+
+        Student savedStudent = studentRepository.save(student);
+        return new StudentResponse(savedStudent);
+    }
+    public void deleteStudent(Long id){
+        Student student = studentRepository.getById(id);
+        studentRepository.delete(student);
     }
 }
