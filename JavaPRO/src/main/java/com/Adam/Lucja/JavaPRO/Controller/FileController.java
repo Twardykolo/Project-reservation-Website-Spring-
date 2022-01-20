@@ -56,5 +56,15 @@ public class FileController {
         File file = fileService.getFile(id);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getName()+"\"").body(file.getData());
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateFile(@PathVariable String id,@RequestBody MultipartFile newFile){
+        File file = fileService.updateFile(id,newFile);
+        return ResponseEntity.ok(file);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteFile(@PathVariable String id){
+        fileService.deleteFile(id);
+        return ResponseEntity.ok().build();
+    }
 
 }

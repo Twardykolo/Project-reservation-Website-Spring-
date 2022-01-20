@@ -1,6 +1,5 @@
 package com.Adam.Lucja.JavaPRO.DTO.Response;
 
-import com.Adam.Lucja.JavaPRO.Entity.File;
 import com.Adam.Lucja.JavaPRO.Entity.Projekt;
 import com.Adam.Lucja.JavaPRO.Entity.Temat;
 import lombok.*;
