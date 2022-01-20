@@ -1,12 +1,11 @@
 package com.Adam.Lucja.JavaPRO.Service;
 
+import com.Adam.Lucja.JavaPRO.DTO.Request.LoginRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Request.StudentRequest;
 import com.Adam.Lucja.JavaPRO.Entity.Student;
 import com.Adam.Lucja.JavaPRO.Repository.StudentRepository;
 import com.Adam.Lucja.JavaPRO.DTO.Response.StudentResponse;
-import static com.Adam.Lucja.JavaPRO.Util.MD5Generator.getMD5;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +15,10 @@ import java.util.stream.Collectors;
 public class StudentService {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private LoginService loginService;
+
     //Łatwiejszy zapis w pliku TematService.java
     public List<StudentResponse> getAllStudenty(){
         return studentRepository.findAll().stream() //wyciągnięcie z bazy danych za pomocą studentRepository
@@ -33,7 +33,9 @@ public class StudentService {
         Student student = Student.builder()
                 .name(studentRequest.getName())
                 .surname(studentRequest.getSurname())
-                .password(passwordEncoder.encode(studentRequest.getPassword()))
+                .login(
+                        loginService.createLogin(new LoginRequest(studentRequest))
+                )
                 .email(studentRequest.getEmail())
                 .nrAlbum(studentRequest.getNrAlbum())
                 .build();
@@ -45,7 +47,6 @@ public class StudentService {
         Student student = studentRepository.getById(id);
         student.setName(studentRequest.getName());
         student.setSurname(studentRequest.getSurname());
-        student.setPassword(studentRequest.getPassword());
         student.setEmail(studentRequest.getEmail());
         student.setNrAlbum(studentRequest.getNrAlbum());
 

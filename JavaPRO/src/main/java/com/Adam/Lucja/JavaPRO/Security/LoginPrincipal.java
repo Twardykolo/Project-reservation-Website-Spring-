@@ -1,5 +1,6 @@
-package com.Adam.Lucja.JavaPRO.Config;
+package com.Adam.Lucja.JavaPRO.Security;
 
+import com.Adam.Lucja.JavaPRO.Entity.Login;
 import com.Adam.Lucja.JavaPRO.Entity.Student;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,21 +12,26 @@ import java.util.Objects;
 @Getter
 public class LoginPrincipal implements UserDetails {
 
-    private Student login;
+    private Login login;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    private LoginPrincipal(Student login) {
+    private LoginPrincipal(Login login) {
         this.login = login;
     }
 
-    public static LoginPrincipal create(Student login) {
-        return new LoginPrincipal(login);
+    public static LoginPrincipal create(Login szukanyStudent) {
+        return new LoginPrincipal(szukanyStudent);
     }
 
     @Override
     public String getUsername() {
-        return login.getNrAlbum();
+        return login.getUsername();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
     }
 
     @Override
@@ -58,7 +64,7 @@ public class LoginPrincipal implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LoginPrincipal that = (LoginPrincipal) o;
-        return Objects.equals(login.getNrAlbum(), that.login.getNrAlbum());
+        return Objects.equals(login.getUsername(), that.login.getUsername());
     }
 
 }

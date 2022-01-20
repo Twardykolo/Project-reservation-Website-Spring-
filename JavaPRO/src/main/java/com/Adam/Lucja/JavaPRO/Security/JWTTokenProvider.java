@@ -1,4 +1,4 @@
-package com.Adam.Lucja.JavaPRO.Config;
+package com.Adam.Lucja.JavaPRO.Security;
 
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -7,15 +7,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import java.util.Base64;
 import java.util.Date;
 
 @Component
 public class JWTTokenProvider {
 
     private static final Logger log = LoggerFactory.getLogger(JWTTokenProvider.class);
-
-    private final Base64.Encoder encoder = Base64.getEncoder();
 
     @Value("${security.authentication.jwt.secret}")
     private String secretKey;
@@ -27,29 +24,23 @@ public class JWTTokenProvider {
 
         LoginPrincipal loginPrincipal = (LoginPrincipal) authentication.getPrincipal();
 
-        long now = (new Date()).getTime();
-        Date expiryDate = new Date(now + this.tokenValidity);
-
         return Jwts.builder()
-                .setSubject(loginPrincipal.getLogin().getNrAlbum())
+                .setSubject(loginPrincipal.getLogin().getUsername())
                 .setIssuedAt(new Date())
-                .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, this.secretKey)
+                .setExpiration(new Date((new Date()).getTime()+tokenValidity))
+                .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
     }
 
-    public String getLoginIdFromJWT(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(this.secretKey)
-                .parseClaimsJws(token)
-                .getBody();
-        return claims.getSubject();
+    public String getNrAlbumFromJWT(String token) {
+        return Jwts.parser().setSigningKey(secretKey)
+                .parseClaimsJws(token).getBody()
+                .getSubject();
     }
 
     public boolean validateToken(String authToken) {
-
         try {
-            Jwts.parser().setSigningKey(this.secretKey).parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
             log.info("SignatureException in validateToken()");
@@ -57,7 +48,6 @@ public class JWTTokenProvider {
         } catch (MalformedJwtException e) {
             log.info("MalformedJwtException in validateToken()");
             log.trace("MalformedJwtException in validateToken(): {}", e);
-
         } catch (UnsupportedJwtException e) {
             log.info("UnsupportedJwtException in validateToken()");
             log.trace("UnsupportedJwtException in validateToken(): {}", e);

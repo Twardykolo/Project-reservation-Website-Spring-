@@ -1,15 +1,15 @@
 package com.Adam.Lucja.JavaPRO.Config;
 
+import com.Adam.Lucja.JavaPRO.Security.JwtAuthenticationEntryPoint;
+import com.Adam.Lucja.JavaPRO.Security.JwtAuthenticationFilter;
 import com.Adam.Lucja.JavaPRO.Service.LoginDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -19,18 +19,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private LoginDetailsService loginDetailsService;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    @Autowired
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
 
     @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+    public JwtAuthenticationFilter authenticationJwtTokenFilter(){
         return new JwtAuthenticationFilter();
     }
 
@@ -41,53 +40,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
-    @Bean(BeanIds.AUTHENTICATION_MANAGER)
+    @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring()
-                .antMatchers(HttpMethod.OPTIONS, "/**")
-                .antMatchers("/app/**/*.{js,html}")
-                .antMatchers("/dt-app")
-                .antMatchers("/dt-app/**")
-                .antMatchers(
-                        "/v3/api-docs/**",
-                        "/configuration/ui",
-                        "/swagger-resources",
-                        "/swagger-resources/**",
-                        "/configuration/security",
-                        "/swagger-ui/**",
-                        "/webjars/**");
-
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors()
-                .and()
-                .csrf()
-                .disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/swagger-resources/configuration/ui").permitAll()
-                .antMatchers("/swagger.html").permitAll()
-                .antMatchers("/swagger-ui.html/**").permitAll()
-                .antMatchers("/swagger**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
-                .antMatchers("/tematy/**").permitAll()
-//                .antMatchers("/**").permitAll()
-                .anyRequest().authenticated();
+                .cors().and().csrf().disable()
+                        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+                        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        .and().authorizeHttpRequests().antMatchers("/api/auth/**").permitAll()
+                        .anyRequest().authenticated();
 
-        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

@@ -1,20 +1,15 @@
 package com.Adam.Lucja.JavaPRO.Service;
 
 import com.Adam.Lucja.JavaPRO.DTO.Request.ProjektRequest;
-import com.Adam.Lucja.JavaPRO.DTO.Request.StudentRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Response.ProjektResponse;
-import com.Adam.Lucja.JavaPRO.DTO.Response.StudentResponse;
 import com.Adam.Lucja.JavaPRO.Entity.Projekt;
 import com.Adam.Lucja.JavaPRO.Entity.Student;
 import com.Adam.Lucja.JavaPRO.Repository.ProjektRepository;
-import com.Adam.Lucja.JavaPRO.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.Adam.Lucja.JavaPRO.Util.MD5Generator.getMD5;
 
 @Service
 public class ProjektService {

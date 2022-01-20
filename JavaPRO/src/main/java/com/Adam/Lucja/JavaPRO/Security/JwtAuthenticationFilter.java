@@ -1,7 +1,9 @@
-package com.Adam.Lucja.JavaPRO.Config;
+package com.Adam.Lucja.JavaPRO.Security;
 
 
 import com.Adam.Lucja.JavaPRO.Service.LoginDetailsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,15 +26,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private LoginDetailsService loginDetailsService;
 
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
         try {
             String jwt = getJwtFromRequest(request);
-
             if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
-                String loginId = jwtTokenProvider.getLoginIdFromJWT(jwt);
-                UserDetails userDetails = loginDetailsService.loadUserById(loginId);
+                String nrAlbum = jwtTokenProvider.getNrAlbumFromJWT(jwt);
+                UserDetails userDetails = loginDetailsService.loadUserByUsername(nrAlbum);
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -42,7 +44,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } catch (Exception ex) {
             logger.error("Could not set user authentication in security context", ex);
         }
-
         filterChain.doFilter(request, response);
     }
 

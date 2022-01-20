@@ -22,12 +22,12 @@ public class Student {
     private String name;
     @Column(nullable = false)
     private String surname;
-    @Column(nullable = false)
-    private String password;
     @Column(unique = true, nullable = false)
     private String email;
     @Column(unique = true, nullable = false)
     private String nrAlbum;
     @OneToMany(mappedBy = "student")
     private List<Projekt2Student> projekt2student;
+    @OneToOne
+    private Login login;
 }

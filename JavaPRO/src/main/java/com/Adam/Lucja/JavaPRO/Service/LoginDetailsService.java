@@ -1,42 +1,31 @@
 package com.Adam.Lucja.JavaPRO.Service;
 
-import com.Adam.Lucja.JavaPRO.Config.LoginPrincipal;
+import com.Adam.Lucja.JavaPRO.Entity.Login;
+import com.Adam.Lucja.JavaPRO.Repository.LoginRepository;
+import com.Adam.Lucja.JavaPRO.Security.LoginPrincipal;
 import com.Adam.Lucja.JavaPRO.Entity.Student;
-import com.Adam.Lucja.JavaPRO.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ExpressionException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 @Service
 public class LoginDetailsService implements UserDetailsService {
 
     @Autowired
-    private StudentRepository studentRepository;
-
-    @Autowired
-    private HttpServletRequest request;
+    private LoginRepository studentRepository;
 
     @Transactional
-    public UserDetails loadUserByUsername(String userLoginOrEmail)  {
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Student student = studentRepository.findByNrAlbumOrEmail(userLoginOrEmail, userLoginOrEmail)
+        Login login = studentRepository.findByUsername(username)
                 .orElseThrow(() -> new ExpressionException("User Not Found"));
 
-        return LoginPrincipal.create(student);
+        return LoginPrincipal.create(login);
     }
-
-    @Transactional
-    public UserDetails loadUserById(String id)  {
-        Student login = studentRepository.findByNrAlbum(id)
-                .orElseThrow(() -> new ExpressionException("User Not Found"));
-        LoginPrincipal loginPrincipal = LoginPrincipal.create(login);
-
-        return loginPrincipal;
-    }
-
 }

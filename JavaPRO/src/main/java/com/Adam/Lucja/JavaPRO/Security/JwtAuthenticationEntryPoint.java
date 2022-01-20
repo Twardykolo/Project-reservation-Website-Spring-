@@ -1,4 +1,4 @@
-package com.Adam.Lucja.JavaPRO.Config;
+package com.Adam.Lucja.JavaPRO.Security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +17,12 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationEntryPoint.class);
 
     @Override
-    public void commence(final HttpServletRequest httpServletRequest,
-                         final HttpServletResponse httpServletResponse,
+    public void commence(final HttpServletRequest request,
+                         final HttpServletResponse response,
                          final AuthenticationException e) throws IOException, ServletException {
 
         logger.error("Unautorized error. Message - {}", e.getMessage());
-        httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
 
     }
 

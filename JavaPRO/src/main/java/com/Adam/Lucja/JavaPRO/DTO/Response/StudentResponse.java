@@ -3,7 +3,6 @@ package com.Adam.Lucja.JavaPRO.DTO.Response;
 import com.Adam.Lucja.JavaPRO.Entity.Student;
 import lombok.*;
 
-import javax.persistence.Column;
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,7 +12,6 @@ public class StudentResponse {
     private Long id;
     private String name;
     private String surname;
-    private String password;
     private String email;
     private String nrAlbum;
 
@@ -21,7 +19,6 @@ public class StudentResponse {
         this.id=student.getId();
         this.name=student.getName();
         this.surname=student.getSurname();
-        this.password=student.getPassword();
         this.email=student.getEmail();
         this.nrAlbum=student.getNrAlbum();
     }
