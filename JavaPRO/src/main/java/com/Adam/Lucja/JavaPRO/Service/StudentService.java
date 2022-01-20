@@ -6,6 +6,7 @@ import com.Adam.Lucja.JavaPRO.Repository.StudentRepository;
 import com.Adam.Lucja.JavaPRO.DTO.Response.StudentResponse;
 import static com.Adam.Lucja.JavaPRO.Util.MD5Generator.getMD5;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private StudentRepository studentRepository;
     //Łatwiejszy zapis w pliku TematService.java
@@ -29,7 +33,7 @@ public class StudentService {
         Student student = Student.builder()
                 .name(studentRequest.getName())
                 .surname(studentRequest.getSurname())
-                .password(getMD5(studentRequest.getPassword()))
+                .password(passwordEncoder.encode(studentRequest.getPassword()))
                 .email(studentRequest.getEmail())
                 .nrAlbum(studentRequest.getNrAlbum())
                 .build();
