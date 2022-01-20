@@ -1,7 +1,7 @@
 package com.Adam.Lucja.JavaPRO.Service;
 
 import com.Adam.Lucja.JavaPRO.Security.JWTTokenProvider;
-import com.Adam.Lucja.JavaPRO.Security.LoginPrincipal;
+import com.Adam.Lucja.JavaPRO.Security.UserDetailsImpl;
 import com.Adam.Lucja.JavaPRO.DTO.Request.LoginRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Response.AuthResponse;
 import org.slf4j.Logger;
@@ -35,16 +35,16 @@ public class AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtTokenProvider.generateToken(authentication);
 
-        LoginPrincipal loginPrincipal = (LoginPrincipal) authentication.getPrincipal();
-        List<String> roles = loginPrincipal.getAuthorities().stream()
+        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authentication.getPrincipal();
+        List<String> roles = userDetailsImpl.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
         return new AuthResponse(
-                ((LoginPrincipal) authentication.getPrincipal()).getLogin().getId(),
+                ((UserDetailsImpl) authentication.getPrincipal()).getId(),
                 jwt,
-                ((LoginPrincipal) authentication.getPrincipal()).getLogin().getUsername(),
-                ((LoginPrincipal) authentication.getPrincipal()).getLogin().getEmail(),
+                ((UserDetailsImpl) authentication.getPrincipal()).getUsername(),
+                ((UserDetailsImpl) authentication.getPrincipal()).getEmail(),
                 roles
         );
     }

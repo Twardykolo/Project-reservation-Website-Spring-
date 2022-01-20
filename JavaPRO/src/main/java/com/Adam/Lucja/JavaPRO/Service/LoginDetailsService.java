@@ -2,8 +2,7 @@ package com.Adam.Lucja.JavaPRO.Service;
 
 import com.Adam.Lucja.JavaPRO.Entity.Login;
 import com.Adam.Lucja.JavaPRO.Repository.LoginRepository;
-import com.Adam.Lucja.JavaPRO.Security.LoginPrincipal;
-import com.Adam.Lucja.JavaPRO.Entity.Student;
+import com.Adam.Lucja.JavaPRO.Security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ExpressionException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +25,6 @@ public class LoginDetailsService implements UserDetailsService {
         Login login = studentRepository.findByUsername(username)
                 .orElseThrow(() -> new ExpressionException("User Not Found"));
 
-        return LoginPrincipal.create(login);
+        return UserDetailsImpl.build(login);
     }
 }

@@ -1,9 +1,15 @@
 package com.Adam.Lucja.JavaPRO.Entity;
 
 import com.Adam.Lucja.JavaPRO.Util.ERole;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(schema="projekty")
 public class Role {

@@ -9,7 +9,7 @@ import com.Adam.Lucja.JavaPRO.Entity.Role;
 import com.Adam.Lucja.JavaPRO.Repository.LoginRepository;
 import com.Adam.Lucja.JavaPRO.Repository.RoleRepository;
 import com.Adam.Lucja.JavaPRO.Security.JWTTokenProvider;
-import com.Adam.Lucja.JavaPRO.Security.LoginPrincipal;
+import com.Adam.Lucja.JavaPRO.Security.UserDetailsImpl;
 import com.Adam.Lucja.JavaPRO.DTO.Response.AuthResponse;
 import com.Adam.Lucja.JavaPRO.Repository.StudentRepository;
 import com.Adam.Lucja.JavaPRO.Service.StudentService;
@@ -62,11 +62,11 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtTokenProvider.generateToken(authentication);
-        LoginPrincipal loginPrincipal = (LoginPrincipal) authentication.getPrincipal();
-        List<String> roles = loginPrincipal.getAuthorities().stream()
+        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authentication.getPrincipal();
+        List<String> roles = userDetailsImpl.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(new AuthResponse(loginPrincipal.getLogin().getId(),jwt, loginPrincipal.getUsername(), loginPrincipal.getPassword(),roles));
+        return ResponseEntity.ok(new AuthResponse(userDetailsImpl.getId(),jwt, userDetailsImpl.getUsername(), userDetailsImpl.getPassword(),roles));
     }
 
     @PostMapping("/signup")

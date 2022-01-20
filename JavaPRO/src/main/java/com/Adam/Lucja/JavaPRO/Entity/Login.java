@@ -29,7 +29,7 @@ public class Login {
     @Column(nullable = false)
     private String password;
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "login_roles",
+    @JoinTable( schema="projekty",	name = "login_roles",
             joinColumns = @JoinColumn(name = "login_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();

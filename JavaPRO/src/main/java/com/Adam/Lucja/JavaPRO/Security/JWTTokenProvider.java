@@ -22,10 +22,10 @@ public class JWTTokenProvider {
 
     public String generateToken(Authentication authentication) {
 
-        LoginPrincipal loginPrincipal = (LoginPrincipal) authentication.getPrincipal();
+        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authentication.getPrincipal();
 
         return Jwts.builder()
-                .setSubject(loginPrincipal.getLogin().getUsername())
+                .setSubject(userDetailsImpl.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime()+tokenValidity))
                 .signWith(SignatureAlgorithm.HS512, secretKey)
