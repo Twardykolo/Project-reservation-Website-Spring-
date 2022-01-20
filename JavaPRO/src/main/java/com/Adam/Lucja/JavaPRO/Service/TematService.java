@@ -24,6 +24,10 @@ public class TematService {
         return wynikFunkcji;
     }
 
+    public TematResponse getTemat(Long id){
+        return new TematResponse(tematRepository.findById(id).get());
+    }
+
     public TematResponse createTemat(TematRequest tematRequest){
         Temat temat = Temat.builder()
                 .name(tematRequest.getName())
@@ -32,5 +36,19 @@ public class TematService {
         Temat savedTemat = tematRepository.save(temat);
         TematResponse zwrotka = new TematResponse(savedTemat);
         return zwrotka;
+    }
+
+    public TematResponse updateTemat(Long id,TematRequest tematRequest) {
+        Temat temat = tematRepository.findById(id).get();
+        temat.setName(tematRequest.getName());
+        temat.setDescription(tematRequest.getDescription());
+        temat.setIsReserved(tematRequest.getIsReserved().get());
+        Temat savedTemat = tematRepository.save(temat);
+        return new TematResponse(savedTemat);
+    }
+
+    public void deleteTemat(Long id) {
+        Temat temat = tematRepository.findById(id).get();
+        tematRepository.delete(temat);
     }
 }

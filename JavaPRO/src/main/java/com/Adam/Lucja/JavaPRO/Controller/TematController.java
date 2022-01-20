@@ -20,8 +20,24 @@ public class TematController {
         return ResponseEntity.ok(tematService.getAllTematy());
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<TematResponse> getTemat(@PathVariable Long id){
+        return ResponseEntity.ok(tematService.getTemat(id));
+    }
+
     @PostMapping
     public ResponseEntity<TematResponse> createTemat(@RequestBody TematRequest tematRequest){
         return ResponseEntity.ok(tematService.createTemat(tematRequest));
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<TematResponse> updateTemat(@PathVariable Long id,@RequestBody TematRequest tematRequest){
+        return ResponseEntity.ok(tematService.updateTemat(id,tematRequest));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteTemat(@PathVariable Long id){
+        tematService.deleteTemat(id);
+        return ResponseEntity.ok().build();
     }
 }
