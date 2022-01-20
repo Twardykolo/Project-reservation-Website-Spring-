@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tematy/")
+@RequestMapping("/tematy/") //localhost:8080/tematy/
 public class TematController {
     @Autowired
     private TematService tematService;
@@ -24,13 +24,10 @@ public class TematController {
     public ResponseEntity<TematResponse> getTemat(@PathVariable Long id){
         return ResponseEntity.ok(tematService.getTemat(id));
     }
-
     @PostMapping
     public ResponseEntity<TematResponse> createTemat(@RequestBody TematRequest tematRequest){
         return ResponseEntity.ok(tematService.createTemat(tematRequest));
-    }
-
-    @PutMapping("{id}")
+    }@PutMapping("{id}")
     public ResponseEntity<TematResponse> updateTemat(@PathVariable Long id,@RequestBody TematRequest tematRequest){
         return ResponseEntity.ok(tematService.updateTemat(id,tematRequest));
     }
