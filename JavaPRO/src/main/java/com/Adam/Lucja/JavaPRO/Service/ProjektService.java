@@ -1,7 +1,9 @@
 package com.Adam.Lucja.JavaPRO.Service;
 
 import com.Adam.Lucja.JavaPRO.DTO.Request.ProjektRequest;
+import com.Adam.Lucja.JavaPRO.DTO.Response.MessageResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.ProjektResponse;
+import com.Adam.Lucja.JavaPRO.Entity.File;
 import com.Adam.Lucja.JavaPRO.Entity.Projekt;
 import com.Adam.Lucja.JavaPRO.Entity.Projekt2Student;
 import com.Adam.Lucja.JavaPRO.Entity.Student;
@@ -9,9 +11,15 @@ import com.Adam.Lucja.JavaPRO.Repository.Projekt2StudentRepository;
 import com.Adam.Lucja.JavaPRO.Repository.ProjektRepository;
 import com.Adam.Lucja.JavaPRO.Repository.StudentRepository;
 import com.Adam.Lucja.JavaPRO.Repository.TematRepository;
+import com.sun.source.tree.TryTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +37,9 @@ public class ProjektService {
 
     @Autowired
     private Projekt2StudentRepository projekt2StudentRepository;
+
+    @Autowired
+    private FileService fileService;
 
     //Łatwiejszy zapis w pliku TematService.java
     public List<ProjektResponse> getAllProjekty(){
@@ -66,6 +77,7 @@ public class ProjektService {
         ProjektResponse zwrotka = new ProjektResponse(savedProjekt);
         return zwrotka;
     }
+
     public ProjektResponse updateProjekt (ProjektRequest projektRequest, Long id){
         Projekt projekt = projektRepository.getById(id).get();
         projekt.setSubmissionDate(projektRequest.getSubmissionDate());
@@ -75,9 +87,29 @@ public class ProjektService {
         Projekt savedProjekt = projektRepository.save(projekt);
         return new ProjektResponse(savedProjekt);
     }
+
     public void deleteProjekt(Long id){
         Projekt projekt = projektRepository.getById(id).get();
         projektRepository.delete(projekt);
     }
 
+    public ProjektResponse uploadFile(Long id, MultipartFile file){
+        try {
+            File savedFile = fileService.saveFile(file);
+            Projekt projekt = projektRepository.getById(id).get();
+            projekt.setFile(savedFile);
+            projekt.setSubmissionDate(Timestamp.from(Instant.now()));
+            Projekt savedProjekt = projektRepository.save(projekt);
+            return new ProjektResponse(savedProjekt);
+        } catch (IOException e){
+            e.printStackTrace();
+            return new ProjektResponse();
+        }
+    }
+
+    @Transactional
+    public Object getFile(Long id) {
+        Projekt projekt = projektRepository.getById(id).get();
+        return fileService.getFile(projekt.getFile().getId());
+    }
 }
