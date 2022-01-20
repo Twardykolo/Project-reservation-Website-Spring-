@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.stream.Stream;
 
@@ -32,6 +33,7 @@ public class FileService {
         return fileRepository.findAll().stream();
     }
     @SneakyThrows
+    @Transactional
     public FileResponse updateFile (MultipartFile plik, String id){
         File file = fileRepository.getById(id);
         file.setName(plik.getOriginalFilename());
