@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Logowanie</title>
     <meta charset="UTF-8">
@@ -24,7 +24,15 @@
         <hr class="my-4">
     </div>
 </div>
-
+<div sec:authorize="isAuthenticated()">
+    This content is only shown to authenticated users.
+</div>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    This content is only shown to administrators.
+</div>
+<div sec:authorize="hasRole('ROLE_USER')">
+    This content is only shown to users.
+</div>
 <!--Panel logowania-->
 <div class="text-center">
     <form th:action="@{/login}" method="post">
@@ -34,7 +42,7 @@
         <input type="password" id="password" placeholder="Hasło" name="password" class="form-control mt-2" required>
         <div class="login-btn mt-3 mb-5">
             <button class="btn btn-lg btn-secondary col-xs-6 col-sm-4" href="/register">Rejestracja</button>
-            <button class="btn btn-lg btn-primary col-xs-6 col-sm-4">Zaloguj</button>
+            <input type="submit" value="Weź se nospe" class="btn btn-lg btn-primary col-xs-6 col-sm-4">Zaloguj</input>
         </div>
     </form>
     <p th:if="${loginError}" class="error">Login Ci nie wyszedł mordo</p>

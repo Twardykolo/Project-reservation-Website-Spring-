@@ -25,9 +25,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LoginDetailsService loginDetailsService;
 
-    @Autowired
-    private JwtAuthenticationEntryPoint unauthorizedHandler;
-
+//    @Autowired
+//    private JwtAuthenticationEntryPoint unauthorizedHandler;
+//
     @Bean
     public JwtAuthenticationFilter authenticationJwtTokenFilter(){
         return new JwtAuthenticationFilter();
@@ -54,15 +54,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors().and().csrf().disable()
-                        .formLogin().loginPage("/login").failureUrl("/loginZepsuty").and()
-                        .logout().logoutSuccessUrl("/").and()
-                        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-                        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                        .and().authorizeRequests().antMatchers("**favicon.ico").permitAll()
-                        .and().authorizeHttpRequests().antMatchers("/api/auth/**").permitAll()
+                .cors().and().csrf().disable().authorizeHttpRequests()
+                .antMatchers("/api/auth/**").permitAll().anyRequest().permitAll().and()
+                        .formLogin().loginPage("/login")
+                        .successForwardUrl("/login").and()
+                        .logout().logoutSuccessUrl("/");
+//                        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+//                        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                        .and().authorizeRequests().antMatchers("**favicon.ico").permitAll()
 //                        .antMatchers("/**").permitAll()
-                        .anyRequest().permitAll();//zmienić permitAll na authenticated żeby zabezpieczenia wróciły
+//                        .permitAll();//zmienić permitAll na authenticated żeby zabezpieczenia wróciły
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

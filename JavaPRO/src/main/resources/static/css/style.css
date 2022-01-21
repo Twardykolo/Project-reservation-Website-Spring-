@@ -101,7 +101,7 @@ figure {
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
-    filter: opacity(80%);
+    filter: blur(1px);
 }
 .karta{
     justify-content: center;
