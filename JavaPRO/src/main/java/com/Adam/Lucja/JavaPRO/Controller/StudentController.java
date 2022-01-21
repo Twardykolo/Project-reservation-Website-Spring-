@@ -1,6 +1,8 @@
 package com.Adam.Lucja.JavaPRO.Controller;
 
+import com.Adam.Lucja.JavaPRO.DTO.Request.AuthRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Request.StudentRequest;
+import com.Adam.Lucja.JavaPRO.DTO.Response.AuthResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.StudentResponse;
 import com.Adam.Lucja.JavaPRO.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ import java.util.List;
 @RequestMapping("/studenty/")
 public class StudentController {
     @Autowired
+    private AuthController authController;
+
+    @Autowired
     private StudentService studentService;
 
     @GetMapping
@@ -24,8 +29,8 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getStudent(id));
     }
     @PostMapping
-    public ResponseEntity<StudentResponse> createStudent(@RequestBody StudentRequest studentRequest){
-        return ResponseEntity.ok(studentService.createStudent(studentRequest));
+    public ResponseEntity<?> createStudent(@RequestBody StudentRequest studentRequest){
+        return authController.registerStudent(studentRequest);
     }
     @PutMapping("{id}")
     public ResponseEntity<StudentResponse> updateStudent(@RequestBody StudentRequest studentRequest, @PathVariable("id") Long id) {
@@ -35,5 +40,9 @@ public class StudentController {
     public ResponseEntity<Void> deleteStudent (@PathVariable Long id){
         studentService.deleteStudent(id);
         return ResponseEntity.ok().build();
+    }
+    @PostMapping("/login")
+    public ResponseEntity<?> studentLogin(@RequestBody AuthRequest authRequest){
+        return authController.getToken(authRequest);
     }
 }

@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ProjektService {
     @Autowired
     private ProjektRepository projektRepository;
@@ -107,9 +108,19 @@ public class ProjektService {
         }
     }
 
-    @Transactional
     public Object getFile(Long id) {
         Projekt projekt = projektRepository.getById(id).get();
+        if(projekt.getFile()==null)
+            return new MessageResponse("Nie znaleziono plików dla tego projektu");
         return fileService.getFile(projekt.getFile().getId());
+    }
+
+    public ProjektResponse gradeProject(Long id, Double mark) {
+        Projekt projekt = projektRepository.getById(id).get();
+        if(projekt.getSubmissionDate()==null)
+            projekt.setSubmissionDate(Timestamp.from(Instant.now()));
+        projekt.setMark(mark);
+        Projekt savedProjekt = projektRepository.save(projekt);
+        return new ProjektResponse(savedProjekt);
     }
 }

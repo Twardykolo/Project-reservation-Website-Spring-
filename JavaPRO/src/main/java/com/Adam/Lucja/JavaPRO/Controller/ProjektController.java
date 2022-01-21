@@ -47,7 +47,17 @@ public class ProjektController {
     }
     @GetMapping("/getFile/{id}")
     public ResponseEntity<?> getFileDownload(@PathVariable Long id){
-        File file = (File) projektService.getFile(id);
+        File file;
+        Object response = projektService.getFile(id);
+        try {
+            file = (File) response;
+        }catch (ClassCastException e){
+            return ResponseEntity.ok(response);
+        }
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getName()+"\"").body(file.getData());
+    }
+    @PutMapping("/grade/{id}")
+    public ResponseEntity<?> gradeProject(@PathVariable Long id,@RequestBody Double mark){
+        return ResponseEntity.ok(projektService.gradeProject(id,mark));
     }
 }
