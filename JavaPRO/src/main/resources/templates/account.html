@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Konto</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!--Navigation-->
+<div th:insert="navbar"></div>
+
+<!--Nagłówek - konto-->
+<div class="container-fluid padding">
+    <div class="row welcome text-center">
+        <div class="col-12">
+            <h1 class="display-4">
+                Mój projekt
+            </h1>
+        </div>
+        <hr class="my-4">
+    </div>
+</div>
+
+<!--Panel użytkownika-->
+<div class="container-fluid table-account">
+    <table class="table table-hover">
+        <tbody class="thead-dark text-center">
+        <tr>
+            <th colspan="2">
+                <h2>
+                    Informacje o projekcie
+                </h2>
+            </th>
+        </tr>
+        <tr>
+            <th>Nazwa</th>
+            <td>*name*</td>
+        </tr>
+        <tr>
+            <th>Opis</th>
+            <td>*description*</td>
+        </tr>
+        <tr>
+            <th>Termin końcowy</th>
+            <td>*deadline*</td>
+        </tr>
+        <tr>
+            <th>Data oddania</th>
+            <td>*submissionDate*</td>
+        </tr>
+        <tr>
+            <th style="vertical-align: middle;">Plik</th>
+            <td>
+                <form method="post">
+                    <div class="input-group">
+                        <input type="file" class="form-control" id="inputGroupFile" aria-describedby="inputGroupFileAddon" aria-label="Upload">
+                        <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon">Prześlij</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <th>Ocena</th>
+            <td>*mark*</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!--Footer-->
+<div th:insert="footer"></div>
+
+</body>
+</html>

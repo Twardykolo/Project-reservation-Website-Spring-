@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Rejestracja</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!--Navigation-->
+<div th:insert="navbar"></div>
+
+<!--Nagłówek - rejestracja-->
+<div class="container-fluid padding">
+    <div class="row welcome text-center">
+        <div class="col-12">
+            <h1 class="display-4">
+                Zarejestruj się
+            </h1>
+        </div>
+    </div>
+</div>
+
+<!--Panel rejestracji-->
+<div class="text-center">
+    <form th:action="@{/login}" method="post"> <!-- tu chyba nie tak -->
+        <label class="sr-only" for="imie" ></label>
+        <input class="form-control" type="text" id="imie"  name="name" placeholder="Imię" required autofocus>
+        <label class="sr-only" for="nazwisko" ></label>
+        <input class="form-control mt-2" type="text" id="nazwisko"  name="surname" placeholder="Nazwisko" required >
+        <label class="sr-only" for="email" ></label>
+        <input class="form-control mt-2" type="email" id="email"  name="email" placeholder="E-mail" required >
+        <label class="sr-only" for="nrAlbumu" ></label>
+        <input class="form-control mt-2" type="text" id="nrAlbumu"  name="nrAlbum" placeholder="Numer albumu" required >        <label class="sr-only" for="password" ></label>
+        <label for="password" class="sr-only"></label>
+        <input class="form-control mt-2" type="password" id="password" placeholder="Hasło" name="password" minlength="8" required>
+        <label for="password2" class="sr-only"></label>
+        <input class="form-control mt-2" type="password" id="password2" placeholder="Powtórz hasło" name="password" minlength="8" required>
+        <div class="login-btn mt-3 mb-5">
+            <button class="btn btn-lg btn-primary col-xs-6 col-sm-4">Zarejestruj</button>
+        </div>
+    </form>
+</div>
+
+
+
+<!--Footer-->
+<div th:insert="footer"></div>
+
+</body>
+</html>

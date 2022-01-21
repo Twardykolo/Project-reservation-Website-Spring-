@@ -83,20 +83,14 @@ form{
     max-width: 450px;
     margin:auto;
 }
+.table-account{
+    max-width: 660px;
+    margin:auto;
+}
 
 .navbar-collapse {
     justify-content: flex-end;
 }
-/*.jumbotron-przycisk{*/
-/*    padding: 20px;*/
-/*}*/
-
-/*.jumbotron{*/
-/*    align-content: center;*/
-/*    align-items: center;*/
-/*    justify-content:center;*/
-/*}*/
-
 figure {
     margin: 0;
 }
@@ -115,4 +109,7 @@ figure {
 .inkarta{
     display: flex;
     flex-direction: column;
+}
+.table-center{
+    text-align: center;
 }

@@ -28,4 +28,14 @@ class HomeController {
     String logout() {
         return "logout";
     }
+
+    @GetMapping("/account")
+    String account() {
+        return "account";
+    }
+
+    @GetMapping("/register")
+    String register() {
+        return "register";
+    }
 }

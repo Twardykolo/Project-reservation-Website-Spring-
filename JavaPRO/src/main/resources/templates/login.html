@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="pl">
 <head>
     <title>Logowanie</title>
     <meta charset="UTF-8">
@@ -11,7 +13,7 @@
 <!--Navigation-->
 <div th:insert="navbar"></div>
 
-<!--Nagłówek - autorzy-->
+<!--Nagłówek - zaloguj-->
 <div class="container-fluid padding">
     <div class="row welcome text-center">
         <div class="col-12">
@@ -29,9 +31,9 @@
         <label for="nrAlbum" class="sr-only"></label>
         <input type="text" id="nrAlbum" class="form-control" name="username" placeholder="Numer albumu" required autofocus>
         <label for="password" class="sr-only"></label>
-        <input type="password" id="password" placeholder="Hasło" name="password" class="form-control mt-2">
+        <input type="password" id="password" placeholder="Hasło" name="password" class="form-control mt-2" required>
         <div class="login-btn mt-3 mb-5">
-            <button class="btn btn-lg btn-secondary col-xs-6 col-sm-4">Rejestracja</button>
+            <button class="btn btn-lg btn-secondary col-xs-6 col-sm-4" href="/register">Rejestracja</button>
             <button class="btn btn-lg btn-primary col-xs-6 col-sm-4">Zaloguj</button>
         </div>
     </form>
