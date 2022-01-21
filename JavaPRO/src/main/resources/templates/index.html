@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>PROjekt JavaPRO</title>
+    <title>Strona główna</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -11,35 +11,10 @@
 <body>
 
 <!--Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-    <div class="container-fluid">
-        <a class="navbar-brand logo" href="#">
-            <img src="/img/logo.png">
-        </a>
-        <!--przycisk z ikoną menu-->
-        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbar" aria-expanded="false">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Strona główna</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Konto</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Zaloguj</a>
-                </li>
-                <!--albo-->
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Wyloguj</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:insert="navbar"></div>
+
 <hr class="my-4">
+
 <!--Nagłówek - teamty-->
 <div class="container-fluid padding">
     <div class="row welcome text-center">
@@ -168,66 +143,9 @@
         </div>
     </div>
 </figure>
-<!--Jumbotron/Dymek-->
-<!--<div class="container-fluid">-->
-<!--    <div class="row jumbotron">-->
-<!--        <div class="jumbotron-napis col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10">-->
-<!--            <p class="lead">-->
-<!--                Tutaj będzie napis o czym jest projekt i że stworzony na potrzeby PROkopa.-->
-<!--                Tutaj będzie napis o czym jest projekt i że stworzony na potrzeby PROkopa.-->
-<!--                Tutaj będzie napis o czym jest projekt i że stworzony na potrzeby PROkopa.-->
-<!--            </p>-->
-<!--        </div>-->
-<!--        <div class="jumbotron-przycisk col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">-->
-<!--            <a href="#">-->
-<!--                <button type="button" class="btn btn-outline-secondary btn-lg">-->
-<!--                    Stona domowa PROkopa-->
-<!--                </button>-->
-<!--            </a>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+
 <!--Footer-->
-<footer>
-    <div class="container-fluid padding">
-        <div class="row text-center">
-            <div class="col-md-4 footer-center">
-                <hr class="light">
-                <h5>Uczelnia</h5>
-                <hr class="light">
-                <p>Politechnika Rzeszowska im. Ignacego Łukasiewicza</p>
-                <p>al. Powstańców Warszawy 12, Rzeszów</p>
-                <p>tel.: +48 17 865 11 00</p>
-                <p>fax: +48 17 854 12 60</p>
-                <p>e-mail: kancelaria@prz.edu.pl</p>
-            </div>
-            <div class="col-md-4 footer-center">
-                <hr class="light">
-                <h5>Przedmiot</h5>
-                <hr class="light">
-                <p>Technologie WEB i Java</p>
-                <p>Zakład Elektrodynamiki i Systemów Elektromaszynowych</p>
-                <p>Wydział Elektrotechniki i Informatyki</p>
-                <p style="color:#373737">Hiszpańska inkwizycja</p>
-                <p>Prowadzący: Jan Prokop</p>
-            </div>
-            <div class="col-md-4 footer-center">
-                <hr class="light">
-                <h5>Autorzy</h5>
-                <hr class="light">
-                <p>Łucja Pałkus</p>
-                <p>160787@stud.prz.edu.pl</p>
-                <p>&nbsp;</p>
-                <p>Adam Szałański</p>
-                <p>164018@stud.prz.edu.pl</p>
-            </div>
-            <div class="col-12">
-                <hr class="light-100">
-                <h6>&copy; Pałkus&SzałańskiCompany</h6>
-            </div>
-        </div>
-    </div>
-</footer>
+<div th:insert="footer"></div>
 
 </body>
 </html>
