@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Strona główna</title>
@@ -39,6 +39,7 @@
             <th class="table-center" style="width: 45%" scope="col">Temat projektu</th>
             <th class="table-center" style="width: 50%" scope="col">Opis</th>
             <th class="table-center" style="width: 10%" scope="col">Czy zarezerwowany</th>
+            <th class="table-center" style="width: 10%" scope="col" sec:authorize="hasRole('ROLE_USER')">Zarezerwuj</th>
         </tr>
         </thead>
         <tbody>
@@ -47,6 +48,7 @@
             <td>Lucynka</td>
             <td>Pałkuska</td>
             <td class="table-center">idk_men</td>
+            <td class="table-center" sec:authorize="hasRole('ROLE_USER')">Tak mamo</td>
         </tr>
         </tbody>
     </table>

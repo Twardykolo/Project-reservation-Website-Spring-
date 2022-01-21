@@ -23,24 +23,19 @@ class HomeController {
     @Autowired
     AuthService authService;
 
-    @GetMapping({"/","/index"})
+    @RequestMapping({"/","/index"})
     String index(Principal principal) {
-//        return principal != null ? "home/homeSignedIn" : "home/homeNotSignedIn";
-        System.out.println("narka");
         return "index";
     }
 
     @PostMapping("/login")
     String loginDetails(@RequestBody MultiValueMap<String, String> formData) {
         AuthRequest authRequest = new AuthRequest(formData.get("username").get(0),formData.get("password").get(0));
-        System.out.println("Eluwa "+authRequest.getUsername()+" ukradłem hasło "+authRequest.getPassword());
         AuthResponse response = authService.getAuthToken(authRequest);
-        System.out.println(response.getAccessToken());
         return "login";
     }
     @GetMapping("/login")
     String login() {
-        System.out.println("siemka");
         return "login";
     }
 
