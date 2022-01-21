@@ -1,20 +1,46 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example </title>
+    <title>Logowanie</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
+
+<!--Navigation-->
+<div th:insert="navbar"></div>
+
+<!--Nagłówek - autorzy-->
+<div class="container-fluid padding">
+    <div class="row welcome text-center">
+        <div class="col-12">
+            <h1 class="display-4">
+                Zaloguj się
+            </h1>
+        </div>
+        <hr class="my-4">
+    </div>
 </div>
-<div th:if="${param.logout}">
-    You have been logged out.
+
+<!--Panel logowania-->
+<div class="text-center">
+    <form>
+        <label for="nrAlbum" class="sr-only"></label>
+        <input type="text" id="nrAlbum" class="form-control" placeholder="Numer albumu" required autofocus>
+        <label for="password" class="sr-only"></label>
+        <input type="password" id="password" placeholder="Hasło" class="form-control mt-2">
+        <div class="login-btn mt-3 mb-5">
+            <button class="btn btn-lg btn-secondary col-xs-6 col-sm-4">Rejestracja</button>
+            <button class="btn btn-lg btn-primary col-xs-6 col-sm-4">Zaloguj</button>
+        </div>
+    </form>
 </div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
+
+
+
+<!--Footer-->
+<div th:insert="footer"></div>
+
 </body>
 </html>

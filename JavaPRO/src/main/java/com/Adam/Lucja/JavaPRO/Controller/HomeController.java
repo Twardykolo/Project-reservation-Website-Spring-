@@ -18,4 +18,14 @@ class HomeController {
 //        return principal != null ? "home/homeSignedIn" : "home/homeNotSignedIn";
         return "index";
     }
+
+    @GetMapping("/login")
+    String login() {
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    String logout() {
+        return "logout";
+    }
 }

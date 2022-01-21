@@ -20,9 +20,20 @@ html, body{
     border: 1px solid #282866;
 }
 .btn-primary:hover{
-    background-color: #1f1f53;
-    border: 1px solid #1f1f53;
+    background-color: #181846;
+    border: 1px solid #181846;
 }
+.btn-secondary{
+    background-color: #eeeeee;
+    border: 1px solid #181846;
+    color: #181846;
+}
+.btn-secondary:hover{
+    background-color: #d2d2d2;
+    border: 1px solid #181846;
+    color: #181846;
+}
+
 .padding{
     padding-bottom: 2rem;
 }
@@ -65,13 +76,14 @@ hr.light-100{
     flex-direction: column;
     align-items: center;
 }
-
-
-
-
-.logo img{
+.logo{
     height: 56px;
 }
+form{
+    max-width: 450px;
+    margin:auto;
+}
+
 .navbar-collapse {
     justify-content: flex-end;
 }
