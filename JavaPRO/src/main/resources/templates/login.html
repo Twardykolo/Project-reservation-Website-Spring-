@@ -25,11 +25,11 @@
 
 <!--Panel logowania-->
 <div class="text-center">
-    <form>
+    <form th:action="@{/login}" method="post">
         <label for="nrAlbum" class="sr-only"></label>
-        <input type="text" id="nrAlbum" class="form-control" placeholder="Numer albumu" required autofocus>
+        <input type="text" id="nrAlbum" class="form-control" name="username" placeholder="Numer albumu" required autofocus>
         <label for="password" class="sr-only"></label>
-        <input type="password" id="password" placeholder="Hasło" class="form-control mt-2">
+        <input type="password" id="password" placeholder="Hasło" name="password" class="form-control mt-2">
         <div class="login-btn mt-3 mb-5">
             <button class="btn btn-lg btn-secondary col-xs-6 col-sm-4">Rejestracja</button>
             <button class="btn btn-lg btn-primary col-xs-6 col-sm-4">Zaloguj</button>
