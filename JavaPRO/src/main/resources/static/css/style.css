@@ -1,18 +1,89 @@
+html, body{
+    height: 100%;
+    width: 100%;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto;
+    color: #222;
+}
+
+.navbar{
+    padding: .8rem;
+}
+.navbar-nav li{
+    padding-right: 20px;
+}
+.nav-link{
+    fint-size:1.1em !important;
+    color: #373737;
+}
+.btn-primary{
+    background-color: #282866;
+    border: 1px solid #282866;
+}
+.btn-primary:hover{
+    background-color: #1f1f53;
+    border: 1px solid #1f1f53;
+}
+.padding{
+    padding-bottom: 2rem;
+}
+.welcome{
+    width: 75%;
+    margin:0 auto;
+    padding-top: 2rem;
+}
+.welcome hr {
+    border-top: 2px solid #b4b4b4;
+    width: 95%;
+    margin-top: .3rem;
+    margin-bottom: 1rem;
+}
+.img-autor{
+    margin: 1rem;
+}
+footer{
+    background-color: #373737;
+    color: #d5d5d5;
+    padding-top: 2rem;
+}
+hr.light{
+    border-top: 1px solid #d5d5d5;
+    width: 75%;
+    margin-top: .8rem;
+    margin-bottom: 1rem;
+}
+footer a{
+    color: #d5d5d5;
+}
+hr.light-100{
+    border-top: 1px solid #d5d5d5;
+    width: 100%;
+    margin-top: .8rem;
+    margin-bottom: 1rem;
+}
+.footer-center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+
 .logo img{
     height: 56px;
 }
 .navbar-collapse {
     justify-content: flex-end;
 }
-.jumbotron-przycisk{
-    padding: 20px;
-}
+/*.jumbotron-przycisk{*/
+/*    padding: 20px;*/
+/*}*/
 
-.jumbotron{
-    align-content: center;
-    align-items: center;
-    justify-content:center;
-}
+/*.jumbotron{*/
+/*    align-content: center;*/
+/*    align-items: center;*/
+/*    justify-content:center;*/
+/*}*/
 
 figure {
     margin: 0;
@@ -24,10 +95,12 @@ figure {
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
-    filter: opacity(70%);
-    filter: blur(2px);
-
+    filter: opacity(80%);
 }
 .karta{
     justify-content: center;
+}
+.inkarta{
+    display: flex;
+    flex-direction: column;
 }

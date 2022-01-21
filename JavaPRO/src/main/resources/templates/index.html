@@ -4,25 +4,25 @@
     <meta charset="UTF-8">
     <title>PROjekt JavaPRO</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js%22%3E"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
 <!--Navigation-->
-<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand logo" href="#">
             <img src="/img/logo.png">
         </a>
         <!--przycisk z ikoną menu-->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" cata-target="#navbarResponsive">
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbar" aria-expanded="false">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="#">Strona główna</a>
                 </li>
                 <li class="nav-item">
@@ -31,7 +31,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Zaloguj</a>
                 </li>
-                    <!--albo-->
+                <!--albo-->
                 <li class="nav-item">
                     <a class="nav-link" href="#">Wyloguj</a>
                 </li>
@@ -39,14 +39,13 @@
         </div>
     </div>
 </nav>
-
+<hr class="my-4">
 <!--Nagłówek - teamty-->
 <div class="container-fluid padding">
     <div class="row welcome text-center">
         <div class="col-12">
             <h1 class="disably-4">Tematy projektów</h1>
         </div>
-        <hr>
         <div class="col-12">
             <p class="lead">
                 Poniżej zanajdują się tematy projektów wraz z ich opisami, które można zrealizować w ramach projektu z przedmiotu Technologie WEB i Java.
@@ -105,12 +104,12 @@
 <div class="container-fluid padding">
     <div class="row text-center padding">
         <div class="col-xs-12 col-sm-6">
-            <img src="/img/EwaC.jpg" class="img-fluid">
+            <img src="/img/EwaC.jpg" class="img-fluid img-autor">
             <h3>Łucja Pałkus</h3>
             <p>Studentka, szaleje za Dr. PROkopem</p>
         </div>
         <div class="col-xs-12 col-sm-6">
-            <img src="/img/Adam.jpg" class="img-fluid">
+            <img src="/img/Adam.jpg" class="img-fluid img-autor">
             <h3>Adam Szałański</h3>
             <p>Student. Też szaleje za Dr. PROkopem</p>
         </div>
@@ -145,14 +144,15 @@
         <div class="col-md-4">
             <div class="card">
                 <img class="card-img-top center" src="/img/prowadzacy.jpg" alt="Fot. Marian Misiakiewicz">
-                <div class="card-body">
+                <figcaption class="figure-caption" style="font-size: 10px;" >Fot. Marian Misiakiewicz</figcaption>
+                <div class="card-body inkarta">
                     <h4 class="card-title">
                         dr hab. inż. prof. PRz Jan Prokop
                     </h4>
-                    <p class="card-text">
+                    <p class="card-text text-justify">
                         Nauczyciel akademicki zatrudniony jako pracownik badawczo-dydaktyczny na stanowisku profesora uczelni na Wydziale Elektrotechniki i Informatyki Politechniki Rzeszowskiej.
                     </p>
-                    <a href="http://jprokop.prz.edu.pl/#/" class="btn btn-secondary">Wyświetl stronę</a>
+                    <a href="http://jprokop.prz.edu.pl/#/" class="btn btn-primary">Wyświetl stronę</a>
                 </div>
             </div>
         </div>
@@ -163,12 +163,11 @@
 <!--Background image-->
 <figure>
     <div class="fixed-wrap">
-        <div id="fixed" style="background-image: url('../img/fixed-background-3.jpg');">
+        <div id="fixed" style="background-image: url('../img/fixed-background-3.jpg'); filter: blur(2px);">
             <!--            <img src="/img/fixed-background.jpg">-->
         </div>
     </div>
 </figure>
-<hr class="my-4">
 <!--Jumbotron/Dymek-->
 <!--<div class="container-fluid">-->
 <!--    <div class="row jumbotron">-->
@@ -192,34 +191,39 @@
 <footer>
     <div class="container-fluid padding">
         <div class="row text-center">
-            <div class="col-md-4 logo">
-                <img src="/img/logo.png">
-                <hr>
+            <div class="col-md-4 footer-center">
+                <hr class="light">
+                <h5>Uczelnia</h5>
+                <hr class="light">
                 <p>Politechnika Rzeszowska im. Ignacego Łukasiewicza</p>
                 <p>al. Powstańców Warszawy 12, Rzeszów</p>
                 <p>tel.: +48 17 865 11 00</p>
                 <p>fax: +48 17 854 12 60</p>
                 <p>e-mail: kancelaria@prz.edu.pl</p>
             </div>
-            <div class="col-md-4">
-                <hr>
+            <div class="col-md-4 footer-center">
+                <hr class="light">
                 <h5>Przedmiot</h5>
-                <hr>
+                <hr class="light">
                 <p>Technologie WEB i Java</p>
                 <p>Zakład Elektrodynamiki i Systemów Elektromaszynowych</p>
                 <p>Wydział Elektrotechniki i Informatyki</p>
-                <p style="color:white">Hiszpańska inkwizycja</p>
+                <p style="color:#373737">Hiszpańska inkwizycja</p>
                 <p>Prowadzący: Jan Prokop</p>
             </div>
-            <div class="col-md-4">
-                <hr>
+            <div class="col-md-4 footer-center">
+                <hr class="light">
                 <h5>Autorzy</h5>
-                <hr>
+                <hr class="light">
                 <p>Łucja Pałkus</p>
                 <p>160787@stud.prz.edu.pl</p>
-                <p style="color:white">Żodyn si ni spodziwoł</p>
+                <p>&nbsp;</p>
                 <p>Adam Szałański</p>
                 <p>164018@stud.prz.edu.pl</p>
+            </div>
+            <div class="col-12">
+                <hr class="light-100">
+                <h6>&copy; Pałkus&SzałańskiCompany</h6>
             </div>
         </div>
     </div>
