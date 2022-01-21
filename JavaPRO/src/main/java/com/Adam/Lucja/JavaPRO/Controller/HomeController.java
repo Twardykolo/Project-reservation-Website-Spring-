@@ -1,6 +1,7 @@
 package com.Adam.Lucja.JavaPRO.Controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import java.security.Principal;
@@ -37,5 +38,10 @@ class HomeController {
     @GetMapping("/register")
     String register() {
         return "register";
+
+    @GetMapping("/loginZepsuty")
+    String loginFailed(Model model){
+        model.addAttribute("loginError", true);
+        return "login";
     }
 }
