@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .cors().and().csrf().disable()
                         .formLogin().loginPage("/login").failureUrl("/loginZepsuty").and()
-                        .logout().logoutSuccessUrl("/logout").and()
+                        .logout().logoutSuccessUrl("/").and()
                         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                         .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                         .and().authorizeRequests().antMatchers("**favicon.ico").permitAll()
