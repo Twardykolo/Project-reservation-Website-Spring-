@@ -24,7 +24,7 @@ public class Projekt {
     private Double mark;
     @OneToMany(mappedBy = "projekt", fetch = FetchType.EAGER)
     private List<Projekt2Student> projekt2student;
-    @OneToOne(optional = false)
+    @OneToOne(optional = true)
     private File file;
     @OneToOne(optional = false)
     private Temat temat;

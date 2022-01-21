@@ -1,5 +1,6 @@
 package com.Adam.Lucja.JavaPRO.Service;
 
+import com.Adam.Lucja.JavaPRO.DTO.Request.ProjektRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Request.TematRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Response.TematResponse;
 import com.Adam.Lucja.JavaPRO.Entity.Temat;
@@ -7,6 +8,8 @@ import com.Adam.Lucja.JavaPRO.Repository.TematRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +17,9 @@ import java.util.List;
 public class TematService {
     @Autowired
     private TematRepository tematRepository;
+
+    @Autowired
+    private ProjektService projektService;
 
     public List<TematResponse> getAllTematy(){
         List<Temat> tematy =tematRepository.findAll();
@@ -50,5 +56,18 @@ public class TematService {
     public void deleteTemat(Long id) {
         Temat temat = tematRepository.findById(id).get();
         tematRepository.delete(temat);
+    }
+
+    public TematResponse rezerwujTemat(Long id, Long studentId) {
+        Temat temat = tematRepository.findById(id).get();
+        temat.setIsReserved(true);
+        ProjektRequest projektRequest = ProjektRequest.builder()
+                .tematId(temat.getId())
+                .studentId(studentId)
+                .deadline(Timestamp.from(Instant.now().minusSeconds(7889232)))
+                .build();
+        projektService.createProjekt(projektRequest);
+        Temat savedTemat = tematRepository.save(temat);
+        return new TematResponse(savedTemat);
     }
 }

@@ -1,0 +1,33 @@
+.logo img{
+    height: 56px;
+}
+.navbar-collapse {
+    justify-content: flex-end;
+}
+.jumbotron-przycisk{
+    padding: 20px;
+}
+
+.jumbotron{
+    align-content: center;
+    align-items: center;
+    justify-content:center;
+}
+
+figure {
+    margin: 0;
+}
+#fixed {
+    /*background-image: url('static/img/fixed-background.jpg');*/
+    height: 300px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    filter: opacity(70%);
+    filter: blur(2px);
+
+}
+.karta{
+    justify-content: center;
+}

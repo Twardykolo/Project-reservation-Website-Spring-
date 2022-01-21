@@ -46,6 +46,7 @@ dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter-engine'
 	testImplementation 'org.junit.jupiter:junit-jupiter-api'
 	testImplementation 'org.mockito:mockito-core'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 }
 
 test {
