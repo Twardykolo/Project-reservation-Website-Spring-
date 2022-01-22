@@ -18,6 +18,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 class WebMvcController {
@@ -109,16 +110,17 @@ class WebMvcController {
         StudentRequest studentRequest = new StudentRequest(
                 formData.get("name").get(0),
                 formData.get("surname").get(0),
+                formData.get("password").get(0),
                 formData.get("email").get(0),
-                formData.get("nrAlbum").get(0),
-                formData.get("password").get(0));
+                formData.get("nrAlbum").get(0));
         String matchingPassword = formData.get("password2").get(0);
-        if(studentRequest.getPassword()==matchingPassword){
+        System.out.println("Hasło1: "+studentRequest.getPassword()+"\nHasło2: "+matchingPassword);
+        if(matchingPassword.equals(studentRequest.getPassword())){
             studentService.createStudent(studentRequest);
-            model.addAttribute("registerSuccess");
+            model.addAttribute("registerSuccess",true);
         }
         else{
-            model.addAttribute("passwordDontMatch");
+            model.addAttribute("passwordNotMatch",true);
         }
         return "register";
     }
