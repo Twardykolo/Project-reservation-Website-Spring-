@@ -43,11 +43,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr th:each="temat : ${tematy}">
             <th scope="row" class="table-center">1</th>
-            <td>Lucynka</td>
-            <td>Pałkuska</td>
-            <td class="table-center">idk_men</td>
+            <td th:text="${temat.getName()}">Lucynka</td>
+            <td th:text="${temat.getDescription()}">Pałkuska</td>
+            <td class="table-center" th:text="${temat.getIsReserved()}">idk_men</td>
             <td class="table-center" sec:authorize="hasRole('ROLE_USER')">Tak mamo</td>
         </tr>
         </tbody>
