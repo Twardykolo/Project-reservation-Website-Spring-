@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.*;
@@ -83,13 +84,25 @@ class WebMvcController {
 
     @GetMapping("/account")
     String account(Model model, Principal principal) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(
+                r-> r.getAuthority().equals("ROLE_USER"));
+        if(!isAdmin)
+            return index(model,principal);
+
         String nrAlbumu = principal.getName();
         Student student = studentService.getStudentByNrAlbumu(nrAlbumu);
         List<ProjektResponse> projektyStudenta = projekt2StudentServiceService.getProjektByStudentId(student.getId());
         model.addAttribute("projekty", projektyStudenta);
         return "account";
     }
-    
+
+    @RequestMapping("/uploadFile/{id}")
+    String uploadFile(Model model, Principal principal, @PathVariable Long id, @RequestParam("file") MultipartFile file) {
+        projektService.uploadFile(id,file);
+        return account(model,principal);
+    }
+
     @GetMapping("/adminPanel")
     String adminPanel(Model model, Principal principal) {
         //sprawdzenie czy jest adminem, jak nie to przekierowanie na index

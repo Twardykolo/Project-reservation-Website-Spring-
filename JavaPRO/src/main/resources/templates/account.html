@@ -55,10 +55,10 @@
         <tr>
             <th style="vertical-align: middle;">Plik</th>
             <td th:if="${projekt.getFileUrl()==null}">
-                <form method="post">
+                <form th:action="${'/uploadFile/'+projekt.getId()}" method="post" enctype="multipart/form-data">
                     <div class="input-group">
-                        <input type="file" class="form-control" id="inputGroupFile" aria-describedby="inputGroupFileAddon" aria-label="Upload">
-                        <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon">Prześlij</button>
+                        <input type="file" class="form-control" id="inputGroupFile" aria-describedby="inputGroupFileAddon" aria-label="Upload" name="file"/>
+                        <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon">Prześlij</button>
                     </div>
                 </form>
             </td>
