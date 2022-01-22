@@ -48,12 +48,40 @@
                     <button class="btn btn-md btn-primary">Pobierz plik</button>
                 </a>
             </td>
-            <td class="table-center"><!-- Ocena-->
-                <a>
-                    <form th:action="${'/projkety/grade/'+projekt.getId()}">
-                        <button class="btn btn-md btn-primary">Oceń</button>
-                    </form>
-                </a>
+            <td class="table-center" th:if="${projekt.getFileUrl()!=null && projekt.getMark()==null}"><!-- Ocena-->
+                <form th:action="${'/projkety/grade/'+projekt.getId()}">
+                    <div class="input-group mb-3">
+                        <select class="form-select" name="mark" id="input-mark">
+                            <option value="2">2.0</option>
+                            <option value="2.5">2.5</option>
+                            <option value="3">3.0</option>
+                            <option value="3.5">3.5</option>
+                            <option value="4">4.0</option>
+                            <option value="4.5">4.5</option>
+                            <option value="5" selected>5.0</option>
+                        </select>
+                        <button class="btn btn-md btn-primary input-group-text" for="input-mark">Oceń</button>
+                    </div>
+                </form>
+            </td>
+            <td class="table-center" th:if="${projekt.getFileUrl()==null && projekt.getMark()==null}"><!-- Ocena-->
+                <form th:action="${'/projkety/grade/'+projekt.getId()}">
+                    <div class="input-group mb-3">
+                        <select class="form-select" name="mark" id="input-mark" disabled>
+                            <option value="2">2.0</option>
+                            <option value="2.5">2.5</option>
+                            <option value="3">3.0</option>
+                            <option value="3.5">3.5</option>
+                            <option value="4">4.0</option>
+                            <option value="4.5">4.5</option>
+                            <option value="5" selected>5.0</option>
+                        </select>
+                        <button class="btn btn-md btn-primary input-group-text disabled" for="input-mark">Oceń</button>
+                    </div>
+                </form>
+            </td>
+            <td class="table-center" th:if="${projekt.getMark()!=null}">
+                <p class="mb-0" th:text="${projekt.getMark()}"></p>
             </td>
         </tr>
         </tbody>
@@ -62,7 +90,21 @@
 <hr class="my-4">
 
 
-
+<!--<div class="input-group mb-3">-->
+<!--    <label class="input-group-text" for="inputGroupSelect01">Options</label>-->
+<!--    <select class="form-select" id="input-mark">-->
+<!--        <option value="2">Choose...</option>-->
+<!--        <option value="2.5">One</option>-->
+<!--        <option value="3">Two</option>-->
+<!--        <option value="3.5">Three</option>-->
+<!--        <option value="4">Three</option>-->
+<!--        <option value="4.5">One</option>-->
+<!--        <option value="5" selected>Two</option>-->
+<!--    </select>-->
+<!--    <form th:action="${'/projkety/grade/'+projekt.getId()}">-->
+<!--        <button class="btn btn-md btn-primary input-group-text" for="input-mark">Oceń</button>-->
+<!--    </form>-->
+<!--</div>-->
 <!--Footer-->
 <div th:insert="footer"></div>
 
