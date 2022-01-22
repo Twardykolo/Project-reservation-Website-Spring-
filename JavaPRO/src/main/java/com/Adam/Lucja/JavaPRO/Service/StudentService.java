@@ -29,6 +29,10 @@ public class StudentService {
         Student student = studentRepository.getById(id);
         return new StudentResponse(student);
     }
+    public StudentResponse getStudentByNrAlbumu(String nrAlbumu){
+        Student student = studentRepository.findByNrAlbum(nrAlbumu).get();
+        return new StudentResponse(student);
+    }
     public StudentResponse createStudent(StudentRequest studentRequest){
         Student student = Student.builder()
                 .name(studentRequest.getName())
