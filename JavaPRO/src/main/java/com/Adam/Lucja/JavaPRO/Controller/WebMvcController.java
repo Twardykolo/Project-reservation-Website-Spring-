@@ -4,21 +4,20 @@ import com.Adam.Lucja.JavaPRO.DTO.Request.AuthRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Request.StudentRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Response.AuthResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.ProjektResponse;
+import com.Adam.Lucja.JavaPRO.DTO.Response.StudentResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.TematResponse;
 import com.Adam.Lucja.JavaPRO.Entity.Student;
-import com.Adam.Lucja.JavaPRO.Entity.Temat;
 import com.Adam.Lucja.JavaPRO.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 class WebMvcController {
@@ -89,6 +88,24 @@ class WebMvcController {
         List<ProjektResponse> projektyStudenta = projekt2StudentServiceService.getProjektByStudentId(student.getId());
         model.addAttribute("projekty", projektyStudenta);
         return "account";
+    }
+    
+    @GetMapping("/adminPanel")
+    String adminPanel(Model model, Principal principal) {
+        //sprawdzenie czy jest adminem, jak nie to przekierowanie na index
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(
+                r-> r.getAuthority().equals("ROLE_ADMIN"));
+        if(!isAdmin)
+            return index(model,principal);
+
+        List<ProjektResponse> projekty = projektService.getAllProjekty();
+        for(ProjektResponse projekt : projekty){
+            List<StudentResponse> studenci = projekt2StudentServiceService.getStudenciByProjektId(projekt.getId());
+            projekt.setStudenci(studenci);
+        }
+        model.addAttribute("projekty",projekty);
+        return "adminPanel";
     }
 
     @GetMapping("/register")

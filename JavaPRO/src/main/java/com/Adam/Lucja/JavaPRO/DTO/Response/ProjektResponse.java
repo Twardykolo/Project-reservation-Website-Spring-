@@ -6,7 +6,7 @@ import lombok.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.sql.Timestamp;
-import java.util.Optional;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,6 +21,7 @@ public class ProjektResponse {
     private Temat temat;
     private String fileUrl;
     private String name;
+    private List<StudentResponse> studenci;
 
     public ProjektResponse(Projekt projekt){
         this.id= projekt.getId();
