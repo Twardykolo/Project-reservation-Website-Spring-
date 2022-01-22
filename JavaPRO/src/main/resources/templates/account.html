@@ -18,7 +18,7 @@
     <div class="row welcome text-center">
         <div class="col-12">
             <h1 class="display-4">
-                Mój projekt
+                Moje projekty
             </h1>
         </div>
         <hr class="my-4">
@@ -27,13 +27,13 @@
 
 <!--Panel użytkownika-->
 <div class="container-fluid table-account">
-    <table class="table table-hover" th:each="projekt : ${projekty}">
+    <table class="table table-hover" th:each="projekt, i : ${projekty}">
         <tbody class="thead-dark text-center">
         <tr >
             <th colspan="2">
-                <h2>
-                    Informacje o projekcie
-                </h2>
+                <h3  th:text="Informacje o projekcie + ${i.index}">
+
+                </h3>
             </th>
         </tr>
         <tr>
