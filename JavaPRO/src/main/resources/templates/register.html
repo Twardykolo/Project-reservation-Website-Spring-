@@ -26,7 +26,7 @@
 
 <!--Panel rejestracji-->
 <div class="text-center">
-    <form th:action="@{/login}" method="post"> <!-- tu chyba nie tak -->
+    <form th:action="@{/register}" method="post"> <!-- tu chyba nie tak -->
         <label class="sr-only" for="imie" ></label>
         <input class="form-control" type="text" id="imie"  name="name" placeholder="Imię" required autofocus>
         <label class="sr-only" for="nazwisko" ></label>
@@ -38,11 +38,13 @@
         <label for="password" class="sr-only"></label>
         <input class="form-control mt-2" type="password" id="password" placeholder="Hasło" name="password" minlength="8" required>
         <label for="password2" class="sr-only"></label>
-        <input class="form-control mt-2" type="password" id="password2" placeholder="Powtórz hasło" name="password" minlength="8" required>
+        <input class="form-control mt-2" type="password" id="password2" placeholder="Powtórz hasło" name="password2" minlength="8" required>
         <div class="login-btn mt-3 mb-5">
             <button class="btn btn-lg btn-primary col-xs-6 col-sm-4">Zarejestruj</button>
         </div>
     </form>
+    <p th:if="${registerSuccess}" class="success">Rejestracja przebiegła pomyślnie!</p>
+    <p th:if="${passwordDontMatch}" class="error">Podano różne hasła</p>
 </div>
 
 
