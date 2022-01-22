@@ -112,8 +112,19 @@ figure {
 }
 .table-center{
     text-align: center;
+    vertical-align:middle;
 }
 
 label{
     text-align: start;
+}
+ul {
+    list-style: none;
+}
+.table>thead{
+    vertical-align: middle;
+}
+.thead-dark {
+    background-color: #373737;
+    color: #d0d0d0;
 }
