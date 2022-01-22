@@ -10,6 +10,9 @@
 </head>
 <body>
 
+<!--DODAĆ: WYŚWIETLANIE NIEWYBRANYCH TEMATOW-->
+<!--DODAĆ: DODAWANIE TEMATÓW Z POZIOMU ADMINA DO BAZY-->
+
 <!--Navigation-->
 <div th:insert="navbar"></div>
 
@@ -38,9 +41,18 @@
         </thead>
         <tbody>
         <tr th:each="projekt : ${projekty}">
-            <th th:rowspan="${projekt.getStudenci().size()}" scope="row" th:text="${projekt.getName()}"></th> <!-- Nazwa-->
-            <td th:each="student : ${projekt.getStudenci()}" th:text="${student.getNrAlbum()}"></td><!-- Studenci-->
-            <td class="table-center" th:if="${projekt.getFileUrl()==null}"><!-- Plik-->
+            <!-- Nazwa-->
+            <th th:rowspan="${projekt.getStudenci().size()}" scope="row" th:text="${projekt.getName()}"></th>
+            <!-- Studenci-->
+            <td>
+                <ul>
+                    <li th:each="student : ${projekt.getStudenci()}" th:text="${student.getNrAlbum()}">
+
+                    </li>
+                </ul>
+            </td>
+            <!-- Plik-->
+            <td class="table-center" th:if="${projekt.getFileUrl()==null}">
                 <p>Brak danych</p>
             </td>
             <td class="table-center" th:if="${projekt.getFileUrl()!=null}">
@@ -48,7 +60,9 @@
                     <button class="btn btn-md btn-primary">Pobierz plik</button>
                 </a>
             </td>
-            <td class="table-center" th:if="${projekt.getFileUrl()!=null && projekt.getMark()==null}"><!-- Ocena-->
+            <!-- Ocena-->
+                <!--Jeśli plik=podpięty && ocena==brak-->
+            <td class="table-center" th:if="${projekt.getFileUrl()!=null && projekt.getMark()==null}">
                 <form th:action="${'/projekty/grade/'+projekt.getId()}">
                     <div class="input-group mb-3">
                         <select class="form-select" name="mark" id="input-mark">
@@ -64,6 +78,7 @@
                     </div>
                 </form>
             </td>
+                <!--Jeśli plik=nie_podpięty && ocena==brak-->
             <td class="table-center" th:if="${projekt.getFileUrl()==null && projekt.getMark()==null}"><!-- Ocena-->
                 <form th:action="${'/projekty/grade/'+projekt.getId()}">
                     <div class="input-group mb-3">
@@ -80,11 +95,26 @@
                     </div>
                 </form>
             </td>
+                <!--Jeśli plik=podpięty && ocena==jest-->
             <td class="table-center" style="vertical-align: middle;" th:if="${projekt.getMark()!=null}">
                 <div class="input-group mb-3">
                     <p class="mb-0" th:text="${projekt.getMark()}"></p>
                     <button class="btn btn-md btn-primary input-group-text">Oceń ponownie</button>
                 </div>
+                <form>
+                    <div class="input-group mb-3">
+                        <select class="form-select" name="mark" id="input-mark" disabled value="">
+                            <option value="2">2.0</option>
+                            <option value="2.5">2.5</option>
+                            <option value="3">3.0</option>
+                            <option value="3.5">3.5</option>
+                            <option value="4">4.0</option>
+                            <option value="4.5">4.5</option>
+                            <option value="5">5.0</option>
+                        </select>
+                        <button class="btn btn-md btn-primary input-group-text" for="input-mark">Zmień</button>
+                    </div>
+                </form>
             </td>
         </tr>
         </tbody>
