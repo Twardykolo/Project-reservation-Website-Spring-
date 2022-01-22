@@ -61,7 +61,7 @@
         <tbody>
         <tr th:each="projekt : ${projekty}">
             <!-- Nazwa-->
-            <th th:rowspan="${projekt.getStudenci().size()}" scope="row" th:text="${projekt.getName()}"></th>
+            <th scope="row" th:text="${projekt.getName()}"></th>
             <!-- Studenci-->
             <td>
                 <ul>
