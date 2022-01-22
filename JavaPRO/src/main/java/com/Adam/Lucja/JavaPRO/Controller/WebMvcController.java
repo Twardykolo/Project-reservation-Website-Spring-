@@ -1,12 +1,18 @@
 package com.Adam.Lucja.JavaPRO.Controller;
 
 import com.Adam.Lucja.JavaPRO.DTO.Request.StudentRequest;
+import com.Adam.Lucja.JavaPRO.DTO.Request.TematRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Response.ProjektResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.StudentResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.TematResponse;
 import com.Adam.Lucja.JavaPRO.Entity.Student;
 import com.Adam.Lucja.JavaPRO.Service.*;
+import org.apache.tomcat.util.descriptor.web.ErrorPage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import java.security.Principal;
 import java.util.*;
@@ -161,6 +168,16 @@ class WebMvcController {
         Student student = studentService.getStudentByNrAlbumu(nrAlbumu);
         tematService.rezerwujTemat(id, student.getId());
         return index(model,principal);
+    }
+    @RequestMapping("/dodajTemat")
+    String addTemat(Model model,Principal principal, @RequestBody MultiValueMap<String, String> formData){
+        if(!checkIfLoggedInAsUser(model,principal))
+            return index(model,principal);
+        TematRequest request = new TematRequest(formData.get("name").get(0),
+                                                formData.get("description").get(0),
+                                                Optional.of(false));
+        tematService.createTemat(request);
+        return adminPanel(model,principal);
     }
 
     @RequestMapping("/projekty/grade/{id}")
