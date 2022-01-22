@@ -4,11 +4,11 @@ import com.Adam.Lucja.JavaPRO.DTO.Request.AuthRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Request.StudentRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Response.AuthResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.ProjektResponse;
+import com.Adam.Lucja.JavaPRO.DTO.Response.StudentResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.TematResponse;
-import com.Adam.Lucja.JavaPRO.Service.AuthService;
-import com.Adam.Lucja.JavaPRO.Service.ProjektService;
-import com.Adam.Lucja.JavaPRO.Service.StudentService;
-import com.Adam.Lucja.JavaPRO.Service.TematService;
+import com.Adam.Lucja.JavaPRO.Entity.Projekt2Student;
+import com.Adam.Lucja.JavaPRO.Entity.Student;
+import com.Adam.Lucja.JavaPRO.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +36,12 @@ class WebMvcController {
     @Autowired
     StudentService studentService;
 
+    @Autowired
+    ProjektService projektService;
+
+    @Autowired
+    Projekt2StudentService projekt2StudentServiceService;
+
     @RequestMapping({"/","/index"})
     String index(Model model) {
         List<TematResponse> tematy = tematService.getAllTematy();
@@ -61,7 +67,11 @@ class WebMvcController {
     }
 
     @GetMapping("/account")
-    String account() {
+    String account(Model model, Principal principal) {
+        String nrAlbumu = principal.getName();
+        Student student = studentService.getStudentByNrAlbumu(nrAlbumu);
+        List<ProjektResponse> projektyStudenta = projekt2StudentServiceService.getProjektByStudentId(student.getId());
+        model.addAttribute("projekty", projektyStudenta);
         return "account";
     }
 

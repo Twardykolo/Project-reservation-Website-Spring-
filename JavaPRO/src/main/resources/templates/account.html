@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Konto</title>
     <meta charset="UTF-8">
@@ -29,7 +29,7 @@
 <div class="container-fluid table-account">
     <table class="table table-hover">
         <tbody class="thead-dark text-center">
-        <tr>
+        <tr th:each="projekt : ${projekty}">
             <th colspan="2">
                 <h2>
                     Informacje o projekcie
@@ -38,7 +38,7 @@
         </tr>
         <tr>
             <th>Nazwa</th>
-            <td>*name*</td>
+            <td th:text="${projekt.getName()}">-</td>
         </tr>
         <tr>
             <th>Opis</th>
