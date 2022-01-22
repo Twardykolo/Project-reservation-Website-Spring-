@@ -171,7 +171,7 @@ class WebMvcController {
     }
     @RequestMapping("/dodajTemat")
     String addTemat(Model model,Principal principal, @RequestBody MultiValueMap<String, String> formData){
-        if(!checkIfLoggedInAsUser(model,principal))
+        if(!checkIfLoggedInAsAdmin(model,principal))
             return index(model,principal);
         TematRequest request = new TematRequest(formData.get("name").get(0),
                                                 formData.get("description").get(0),
