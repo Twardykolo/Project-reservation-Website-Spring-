@@ -121,10 +121,28 @@ label{
 ul {
     list-style: none;
 }
-.table>thead{
+.table>thead, tr{
     vertical-align: middle;
 }
 .thead-dark {
     background-color: #373737;
     color: #d0d0d0;
+}
+.btn-plas{
+    width: 60%;
+}
+table{
+    max-width: 80%;
+}
+.flex-wysrodkuj{
+    display: flex;
+    justify-content: center;
+}
+td>p,ul,li{
+    padding: 0px;
+    vertical-align: middle;
+    margin: auto;
+}
+.marginsy{
+    margin: 0px;
 }
