@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class TematService {
@@ -66,10 +67,12 @@ public class TematService {
                 .studentId(studentId)
                 .deadline(Timestamp.from(Instant.now().plusSeconds(7889232)))
                 .build();
-        if(projektService.getOneProjektByTematId(id)==null)
-            projektService.createProjekt(projektRequest);
-        else
+        try {
+            projektService.getOneProjektByTematId(id);
             projektService.addStudentToProject(projektRequest);
+        }catch (NoSuchElementException e) {
+            projektService.createProjekt(projektRequest);
+        }
         Temat savedTemat = tematRepository.save(temat);
         return new TematResponse(savedTemat);
     }
