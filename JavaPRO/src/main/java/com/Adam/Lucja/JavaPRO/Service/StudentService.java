@@ -8,10 +8,12 @@ import com.Adam.Lucja.JavaPRO.DTO.Response.StudentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class StudentService {
 
     @Autowired
@@ -29,9 +31,9 @@ public class StudentService {
         Student student = studentRepository.getById(id);
         return new StudentResponse(student);
     }
-    public StudentResponse getStudentByNrAlbumu(String nrAlbumu){
+    public Student getStudentByNrAlbumu(String nrAlbumu){
         Student student = studentRepository.findByNrAlbum(nrAlbumu).get();
-        return new StudentResponse(student);
+        return student;
     }
     public StudentResponse createStudent(StudentRequest studentRequest){
         Student student = Student.builder()
