@@ -51,6 +51,11 @@ public class ProjektService {
         Projekt projekt = projektRepository.getById(id).get();
         return new ProjektResponse(projekt);
     }
+    public Projekt getOneProjektByTematId(Long id){
+        Projekt projekt = projektRepository.getByTematId(id).get();
+        return projekt;
+//        return new ProjektResponse(projekt);
+    }
     public List<ProjektResponse> getProjektyByTematId(Long id){
         List<Projekt> projekt = projektRepository.findAllByTematId(id);
         return projekt.stream().map(ProjektResponse::new).collect(Collectors.toList());
@@ -70,10 +75,10 @@ public class ProjektService {
             Projekt2Student projekt2Student = Projekt2Student.builder()
                     .student(student)
                     .projekt(savedProjekt).build();
-            projekt.setProjekt2student(new ArrayList<>());
-            projekt.getProjekt2student().add(projekt2Student);
-            student.setProjekt2student(new ArrayList<>());
-            student.getProjekt2student().add(projekt2Student);
+//            projekt.setProjekt2student(new ArrayList<>());
+//            projekt.getProjekt2student().add(projekt2Student);
+//            student.setProjekt2student(new ArrayList<>());
+//            student.getProjekt2student().add(projekt2Student);
             Projekt2Student savedProjekt2Student = projekt2StudentRepository.save(projekt2Student);
             savedProjekt = projektRepository.save(projekt);
         }else
@@ -126,5 +131,15 @@ public class ProjektService {
         projekt.setMark(mark);
         Projekt savedProjekt = projektRepository.save(projekt);
         return new ProjektResponse(savedProjekt);
+    }
+
+    public ProjektResponse addStudentToProject(ProjektRequest projektRequest) {
+        Projekt projekt = projektRepository.getByTematId(projektRequest.getTematId()).get();
+        Student student = studentRepository.findById(projektRequest.getStudentId()).get();
+        Projekt2Student projekt2Student = Projekt2Student.builder()
+                .student(student)
+                .projekt(projekt).build();
+        projekt2StudentRepository.save(projekt2Student);
+        return new ProjektResponse(projekt);
     }
 }
