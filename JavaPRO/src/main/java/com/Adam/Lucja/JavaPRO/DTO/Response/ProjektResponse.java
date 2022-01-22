@@ -20,6 +20,7 @@ public class ProjektResponse {
     private Double mark;
     private Temat temat;
     private String fileUrl;
+    private String name;
 
     public ProjektResponse(Projekt projekt){
         this.id= projekt.getId();
@@ -27,6 +28,7 @@ public class ProjektResponse {
         this.deadline=projekt.getDeadline();
         this.mark= projekt.getMark();
         this.temat=projekt.getTemat();
+        this.name=this.temat.getName();
         if(projekt.getFile()!=null)
             this.fileUrl=ServletUriComponentsBuilder
                     .fromCurrentContextPath().path("/files/")
