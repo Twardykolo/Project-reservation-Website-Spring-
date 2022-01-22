@@ -144,10 +144,14 @@ class WebMvcController {
                 formData.get("email").get(0),
                 formData.get("nrAlbum").get(0));
         String matchingPassword = formData.get("password2").get(0);
-        System.out.println("Hasło1: "+studentRequest.getPassword()+"\nHasło2: "+matchingPassword);
+//        System.out.println("Hasło1: "+studentRequest.getPassword()+"\nHasło2: "+matchingPassword);
         if(matchingPassword.equals(studentRequest.getPassword())){
-            studentService.createStudent(studentRequest);
-            model.addAttribute("registerSuccess",true);
+            try {
+                studentService.createStudent(studentRequest);
+                model.addAttribute("registerSuccess", true);
+            }catch(Exception e){
+                model.addAttribute("registerFailed",true);
+            }
         }
         else{
             model.addAttribute("passwordNotMatch",true);

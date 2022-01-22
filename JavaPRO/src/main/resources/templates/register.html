@@ -44,6 +44,7 @@
         </div>
     </form>
     <p th:if="${registerSuccess}" class="success">Rejestracja przebiegła pomyślnie!</p>
+    <p th:if="${registerFailed}" class="error">Nie udało się zarejestrować użytkownika</p>
     <p th:if="${passwordNotMatch}" class="error">Podano różne hasła</p>
 </div>
 
