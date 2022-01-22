@@ -22,6 +22,7 @@
 <hr class="my-4">
 
 <!--Nagłówek - teamty-->
+
 <div class="container-fluid padding">
     <div class="row welcome text-center">
         <div class="col-12">
@@ -37,7 +38,7 @@
 <hr class="my-4">
 
 <!--Tabela tematów-->
-<div class="container-fluid">
+<div class="container-fluid flex-wysrodkuj">
     <table class="table table-hover">
         <thead class="thead-dark text-center">
         <tr>
@@ -56,8 +57,8 @@
             <td class="table-center" th:text="${temat.getIsReserved() ? 'Nie' : 'Tak'}"></td>
             <td class="table-center" sec:authorize="hasRole('ROLE_USER')">
                 <a>
-                    <button class="btn btn-sm btn-secondary disabled" th:if="${temat.getLiczbaOsob()>=2 || tematyStudenta.contains(temat.getId())}" >+</button>
-                    <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#mojModal" th:onclick="|ustawTematId('${temat.getId()}')|" th:unless="${temat.getLiczbaOsob()>=2 || tematyStudenta.contains(temat.getId())}" >+</button>
+                    <button class="btn btn-sm btn-plas btn-secondary disabled" th:if="${temat.getLiczbaOsob()>=2 || tematyStudenta.contains(temat.getId())}" >+</button>
+                    <button class="btn btn-sm btn-plas btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#mojModal" th:onclick="|ustawTematId('${temat.getId()}')|" th:unless="${temat.getLiczbaOsob()>=2 || tematyStudenta.contains(temat.getId())}" >+</button>
                 </a>
             </td>
 
