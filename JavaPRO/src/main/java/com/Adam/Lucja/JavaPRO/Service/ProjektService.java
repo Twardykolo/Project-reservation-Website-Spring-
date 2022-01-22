@@ -11,7 +11,6 @@ import com.Adam.Lucja.JavaPRO.Repository.Projekt2StudentRepository;
 import com.Adam.Lucja.JavaPRO.Repository.ProjektRepository;
 import com.Adam.Lucja.JavaPRO.Repository.StudentRepository;
 import com.Adam.Lucja.JavaPRO.Repository.TematRepository;
-import com.sun.source.tree.TryTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,9 +51,10 @@ public class ProjektService {
         Projekt projekt = projektRepository.getById(id).get();
         return new ProjektResponse(projekt);
     }
-    public ProjektResponse getProjektByTematId(Long id){
-        Projekt projekt = projektRepository.getByTemat(id).get();
-        return new ProjektResponse(projekt);
+    public List<ProjektResponse> getProjektyByTematId(Long id){
+        List<Projekt> projekt = projektRepository.findAllByTematId(id);
+        return projekt.stream().map(ProjektResponse::new).collect(Collectors.toList());
+//        return new ProjektResponse(projekt);
     }
     public ProjektResponse createProjekt(ProjektRequest projektRequest){
         Projekt projekt = Projekt.builder()

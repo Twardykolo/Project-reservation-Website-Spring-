@@ -4,9 +4,7 @@ import com.Adam.Lucja.JavaPRO.DTO.Request.AuthRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Request.StudentRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Response.AuthResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.ProjektResponse;
-import com.Adam.Lucja.JavaPRO.DTO.Response.StudentResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.TematResponse;
-import com.Adam.Lucja.JavaPRO.Entity.Projekt2Student;
 import com.Adam.Lucja.JavaPRO.Entity.Student;
 import com.Adam.Lucja.JavaPRO.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +44,8 @@ class WebMvcController {
     String index(Model model) {
         List<TematResponse> tematy = tematService.getAllTematy();
         for (TematResponse temat:  tematy) {
-            ProjektResponse projekt = projektService.getProjektByTematId(temat.getId());
-            List<StudentResponse> listaStudentow = projekt2StudentServiceService.getStudenciByProjektId(projekt.getId());
-            temat.setLiczbaOsob(listaStudentow.size());
+            List<ProjektResponse> projekty = projektService.getProjektyByTematId(temat.getId());
+            temat.setLiczbaOsob(projekty.size());
         }
         Collections.sort(tematy);
         model.addAttribute("tematy",tematy);
