@@ -57,7 +57,7 @@
             <td class="table-center" sec:authorize="hasRole('ROLE_USER')">
                 <a>
                     <button class="btn btn-sm btn-secondary disabled" th:if="${temat.getLiczbaOsob()>=2 || tematyStudenta.contains(temat.getId())}" >+</button>
-                    <button class="btn btn-sm btn-primary" type="button" data-toggle="modal" data-target="#mojModal" th:onclick="|ustawTematId('${temat.getId()}')|" th:unless="${temat.getLiczbaOsob()>=2 || tematyStudenta.contains(temat.getId())}" >+</button>
+                    <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#mojModal" th:onclick="|ustawTematId('${temat.getId()}')|" th:unless="${temat.getLiczbaOsob()>=2 || tematyStudenta.contains(temat.getId())}" >+</button>
                 </a>
             </td>
 
@@ -79,7 +79,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Rezygnuję</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rezygnuję</button>
                 <form id="form-accept">
                     <button class="btn btn-sm btn-primary" type="submit">Potwierdzam</button>
                 </form>
@@ -87,51 +87,7 @@
         </div>
     </div>
 </div>
-<!-- Button trigger modal -->
-<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mojModal">-->
-<!--    Launch demo modal-->
-<!--</button>-->
 
-<!--&lt;!&ndash; Modal &ndash;&gt;-->
-<!--<div class="modal fade" id="mojModal" tabindex="-1" role="dialog" aria-labelledby="mojModalLabel" aria-hidden="true">-->
-<!--    <div class="modal-dialog" role="document">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="mojModalLabel">Ostrzeżenie</h5>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <p>-->
-<!--                    Po zaakceptowaniu nie ma możliwości zmiany projektu. Czy potwierdzasz swój wybór?-->
-<!--                </p>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Rezygnuję</button>-->
-<!--                <form th:action="${'/zarezerwujTemat/'+temat.getId()}">-->
-<!--                    <button class="btn btn-sm btn-primary" type="submit">Potwierdzam</button>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--<div class="container">-->
-<!--    <div class="row">-->
-<!--        <div class="col-md-12">-->
-<!--            <div class="modal fade" id="myModal">-->
-<!--                <div class="modal-dialog">-->
-<!--                    <div class="modal-header">-->
-<!--                        <h3>Uwaga</h3>-->
-<!--                    </div>-->
-<!--                    <div class="modal-header">-->
-
-<!--                    </div>-->
-<!--                    <div class="modal-header">-->
-
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 <!--Background image-->
 <figure>
     <div class="fixed-wrap">

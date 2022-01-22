@@ -128,7 +128,7 @@ class WebMvcController {
 //    String specialController(){
 //        return "tak";
 //    }
-    
+
     @RequestMapping("/register")
     String register(@RequestBody MultiValueMap<String, String> formData, Model model){
         StudentRequest studentRequest = new StudentRequest(
