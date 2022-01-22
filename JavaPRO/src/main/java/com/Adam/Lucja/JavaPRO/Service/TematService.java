@@ -13,6 +13,9 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+
+import static java.util.function.Predicate.not;
 
 @Service
 public class TematService {
@@ -43,6 +46,15 @@ public class TematService {
         Temat savedTemat = tematRepository.save(temat);
         TematResponse zwrotka = new TematResponse(savedTemat);
         return zwrotka;
+    }
+
+    public List<TematResponse> getAllWolneTematy(){
+        List<Temat> tematy =tematRepository.findAll().stream().filter(not(Temat::getIsReserved)).collect(Collectors.toList());
+        List<TematResponse> wynikFunkcji = new ArrayList<>();
+        for (Temat temat: tematy) {
+            wynikFunkcji.add(new TematResponse(temat));
+        }
+        return wynikFunkcji;
     }
 
     public TematResponse updateTemat(Long id,TematRequest tematRequest) {

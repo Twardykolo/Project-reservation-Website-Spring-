@@ -130,6 +130,78 @@
                     </form>
                 </td>
             </tr>
+        <tr th:each="projekt : ${projekty}">
+            <!-- Nazwa-->
+            <th scope="row" th:text="${projekt.getName()}"></th>
+            <!-- Studenci-->
+            <td>
+                <ul>
+                    <li th:each="student : ${projekt.getStudenci()}" th:text="${student.getNrAlbum()}">
+
+                    </li>
+                </ul>
+            </td>
+            <!-- Plik-->
+            <td class="table-center" th:if="${projekt.getFileUrl()==null}">
+                <p>Brak danych</p>
+            </td>
+            <td class="table-center" th:if="${projekt.getFileUrl()!=null}">
+                <a th:href="${projekt.getFileUrl()}">
+                    <button class="btn btn-md btn-primary">Pobierz plik</button>
+                </a>
+            </td>
+            <!-- Ocena-->
+                <!--Jeśli plik=podpięty && ocena==brak-->
+            <td class="table-center" th:if="${projekt.getFileUrl()!=null && projekt.getMark()==null}">
+                <form th:action="${'/projekty/grade/'+projekt.getId()}">
+                    <div class="input-group mb-3">
+                        <select class="form-select" name="mark" id="input-mark">
+                            <option value="2">2.0</option>
+                            <option value="3">3.0</option>
+                            <option value="3.5">3.5</option>
+                            <option value="4">4.0</option>
+                            <option value="4.5">4.5</option>
+                            <option value="5" selected>5.0</option>
+                        </select>
+                        <button class="btn btn-md btn-primary input-group-text" for="input-mark">Oceń</button>
+                    </div>
+                </form>
+            </td>
+                <!--Jeśli plik=nie_podpięty && ocena==brak-->
+            <td class="table-center" th:if="${projekt.getFileUrl()==null && projekt.getMark()==null}"><!-- Ocena-->
+                <form th:action="${'/projekty/grade/'+projekt.getId()}">
+                    <div class="input-group mb-3">
+                        <select class="form-select" name="mark" id="input-mark" disabled>
+                            <option value="2">2.0</option>
+                            <option value="3">3.0</option>
+                            <option value="3.5">3.5</option>
+                            <option value="4">4.0</option>
+                            <option value="4.5">4.5</option>
+                            <option value="5" selected>5.0</option>
+                        </select>
+                        <button class="btn btn-md btn-primary input-group-text disabled" for="input-mark">Oceń</button>
+                    </div>
+                </form>
+            </td>
+                <!--Jeśli plik=podpięty && ocena==jest-->
+            <td class="table-center" style="vertical-align: middle;" th:if="${projekt.getMark()!=null}">
+                <form th:action="${'/projekty/grade/'+projekt.getId()}">
+                    <div class="input-group mb-3">
+                        <select class="form-select" name="mark" th:id="input-mark+${projekt.getId()}" disabled>
+                            <option value="2" th:selected="${projekt.getMark()==2}">2.0</option>
+                            <option value="3" th:selected="${projekt.getMark()==3}">3.0</option>
+                            <option value="3.5" th:selected="${projekt.getMark()==3.5}">3.5</option>
+                            <option value="4" th:selected="${projekt.getMark()==4}">4.0</option>
+                            <option value="4.5" th:selected="${projekt.getMark()==4.5}">4.5</option>
+                            <option value="5" th:selected="${projekt.getMark()==5}">5.0</option>
+                        </select>
+                        <button class="btn btn-md btn-primary input-group-text" for="input-mark" th:id="zmien+${projekt.getId()}"
+                                th:onclick="|event.preventDefault(); change('${projekt.getId()}');|" style="border-radius: 0px 4px 4px 0px;">Zmień</button>
+                        <button class="btn btn-md btn-primary input-group-text" for="input-mark" th:id="ocen+${projekt.getId()}" style="display: none">Oceń</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
