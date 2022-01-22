@@ -27,9 +27,9 @@
 
 <!--Panel użytkownika-->
 <div class="container-fluid table-account">
-    <table class="table table-hover">
+    <table class="table table-hover" th:each="projekt : ${projekty}">
         <tbody class="thead-dark text-center">
-        <tr th:each="projekt : ${projekty}">
+        <tr >
             <th colspan="2">
                 <h2>
                     Informacje o projekcie
@@ -42,19 +42,19 @@
         </tr>
         <tr>
             <th>Opis</th>
-            <td>*description*</td>
+            <td th:text="${projekt.getTemat().getDescription()}">*description*</td>
         </tr>
         <tr>
             <th>Termin końcowy</th>
-            <td>*deadline*</td>
+            <td th:text="${projekt.getDeadline()}">*deadline*</td>
         </tr>
         <tr>
             <th>Data oddania</th>
-            <td>*submissionDate*</td>
+            <td th:text="${projekt.getSubmissionDate()}">*submissionDate*</td>
         </tr>
         <tr>
             <th style="vertical-align: middle;">Plik</th>
-            <td>
+            <td th:if="${projekt.getFileUrl()==null}">
                 <form method="post">
                     <div class="input-group">
                         <input type="file" class="form-control" id="inputGroupFile" aria-describedby="inputGroupFileAddon" aria-label="Upload">
@@ -62,10 +62,15 @@
                     </div>
                 </form>
             </td>
+            <td th:if="${projekt.getFileUrl()!=null}">
+                <a th:href="${projekt.getFileUrl()}">
+                    Pobierz plik
+                </a>
+            </td>
         </tr>
         <tr>
             <th>Ocena</th>
-            <td>*mark*</td>
+            <td th:text="${projekt.getMark()}">*mark*</td>
         </tr>
         </tbody>
     </table>
