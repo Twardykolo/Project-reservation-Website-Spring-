@@ -103,6 +103,9 @@ class WebMvcController {
         if(!isAdmin)
             return index(model,principal);
 
+        List<TematResponse> wolneTematy = tematService.getAllWolneTematy();
+        model.addAttribute("wolneTematy",wolneTematy);
+
         List<ProjektResponse> projekty = projektService.getAllProjekty();
         for(ProjektResponse projekt : projekty){
             List<StudentResponse> studenci = projekt2StudentService.getStudenciByProjektId(projekt.getId());
