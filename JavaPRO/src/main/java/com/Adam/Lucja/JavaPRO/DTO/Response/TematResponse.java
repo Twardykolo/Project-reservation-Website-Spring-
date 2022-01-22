@@ -10,7 +10,7 @@ import java.util.Comparator;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TematResponse implements Comparator<TematResponse> {
+public class TematResponse implements Comparable<TematResponse> {
     private Long id;
     private String name;
     private String description;
@@ -22,7 +22,8 @@ public class TematResponse implements Comparator<TematResponse> {
         this.isReserved=temat.getIsReserved();
         this.name= temat.getName();
     }
-    public int compare(TematResponse temat1, TematResponse temat2){
-        return temat1.getId().compareTo(temat2.getId());
+
+    public int compareTo(TematResponse tematResponse2){
+        return this.id.compareTo(tematResponse2.getId());
     }
 }
