@@ -17,7 +17,6 @@
             elemm.disabled = false;
         }
     </script>
-
 </head>
 <body>
 
@@ -138,6 +137,29 @@
     </table>
 </div>
 <hr class="my-4">
+
+<!--Nagłówek - dodawanie tematów-->
+<div class="container-fluid padding">
+    <div class="col-12 text-center">
+        <h2>
+            Dodawanie tematu
+        </h2>
+    </div>
+</div>
+
+<div class="text-center">
+    <form th:action="@{/dodajTemat}" method="post">
+        <label class="sr-only" for="nazwa" >Nazwa tematu</label>
+        <input class="form-control mb-2 mt-1" type="text" id="nazwa"  name="name" required>
+        <label class="sr-only" for="opis" >Opis</label>
+        <input class="form-control mb-2 mt-1" type="text" id="opis"  name="description" required>
+        <div class="login-btn mt-3 mb-5 text-center">
+            <button class="btn btn-md btn-primary col-xs-6 col-sm-4">Dodaj temat</button>
+        </div>
+    </form>
+</div>
+
+<hr class="my-4">
 <!--Nagłówek - wolne tematy-->
 <div class="container-fluid padding">
     <div class="col-12 text-center">
@@ -149,7 +171,7 @@
 
 <!--Panel administratora-->
 <div class="container-fluid flex-wysrodkuj">
-    <table class="table table-hover rounded-top">
+    <table class="table table-hover rounded-top" id="table-add-temat">
         <thead class="thead-dark text-center">
             <tr>
                 <th class="table-center" style="width: 40%" scope="col">Nazwa</th>
