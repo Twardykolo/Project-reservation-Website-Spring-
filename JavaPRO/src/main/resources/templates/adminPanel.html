@@ -31,27 +31,27 @@
         <thead class="thead-dark text-center">
         <tr>
             <th class="table-center" scope="col">Nazwa</th>
-            <th class="table-center" scope="col">Student</th>
+            <th class="table-center" scope="col">Nr albumu tudenta</th>
             <th class="table-center" scope="col">Plik</th>
             <th class="table-center" scope="col">Ocena</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="projekt : ${projekty}">
-            <th scope="row" th:text="${projekt.getName()}"></th> <!-- Nazwa-->
-            <td th:text="${}"></td><!-- Studenci-->
+            <th th:rowspan="${projekt.getStudenci().size()}" scope="row" th:text="${projekt.getName()}"></th> <!-- Nazwa-->
+            <td th:each="student : ${projekt.getStudenci()}" th:text="${student.getNrAlbum()}"></td><!-- Studenci-->
             <td class="table-center" th:if="${projekt.getFileUrl()==null}"><!-- Plik-->
                 <p>Brak danych</p>
             </td>
             <td class="table-center" th:if="${projekt.getFileUrl()!=null}">
                 <a th:href="${projekt.getFileUrl()}">
-                    <button class="btn btn-sm btn-primary">Pobierz plik</button>
+                    <button class="btn btn-md btn-primary">Pobierz plik</button>
                 </a>
             </td>
             <td class="table-center"><!-- Ocena-->
                 <a>
                     <form th:action="${'/projkety/grade/'+projekt.getId()}">
-                        <button class="btn btn-sm btn-primary">Oceń</button>
+                        <button class="btn btn-md btn-primary">Oceń</button>
                     </form>
                 </a>
             </td>

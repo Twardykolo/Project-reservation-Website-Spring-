@@ -42,15 +42,18 @@
         </tr>
         <tr>
             <th>Opis</th>
-            <td th:text="${projekt.getTemat().getDescription()}">*description*</td>
+            <td th:text="${projekt.getTemat().getDescription()}"></td>
         </tr>
         <tr>
             <th>Termin końcowy</th>
-            <td th:text="${projekt.getDeadline()}">*deadline*</td>
+            <td th:text="${projekt.getDeadline()}"></td>
         </tr>
         <tr>
             <th>Data oddania</th>
-            <td th:text="${projekt.getSubmissionDate()}">*submissionDate*</td>
+            <td th:if="${projekt.getSubmissionDate()==null}">
+                Nie oddano
+            </td>
+            <td th:text="${projekt.getSubmissionDate()}"></td>
         </tr>
         <tr>
             <th style="vertical-align: middle;">Plik</th>
@@ -70,7 +73,10 @@
         </tr>
         <tr>
             <th>Ocena</th>
-            <td th:text="${projekt.getMark()}">*mark*</td>
+            <td th:if="${projekt.getMark()==null}">
+                Nie oceniono
+            </td>
+            <td th:text="${projekt.getMark()}"></td>
         </tr>
         </tbody>
     </table>
