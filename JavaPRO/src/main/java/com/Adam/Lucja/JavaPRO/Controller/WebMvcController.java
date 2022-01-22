@@ -6,6 +6,7 @@ import com.Adam.Lucja.JavaPRO.DTO.Response.AuthResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.ProjektResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.TematResponse;
 import com.Adam.Lucja.JavaPRO.Entity.Student;
+import com.Adam.Lucja.JavaPRO.Entity.Temat;
 import com.Adam.Lucja.JavaPRO.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,7 +43,17 @@ class WebMvcController {
     Projekt2StudentService projekt2StudentServiceService;
 
     @RequestMapping({"/","/index"})
-    String index(Model model) {
+    String index(Model model, Principal principal) {
+        List<Long> tematyStudenta = new ArrayList<>();
+        try {
+            String nrAlbumu = principal.getName();
+            Student student = studentService.getStudentByNrAlbumu(nrAlbumu);
+            List<ProjektResponse> projektyStudenta = projekt2StudentServiceService.getProjektByStudentId(student.getId());
+            for (ProjektResponse projekt : projektyStudenta) {
+                tematyStudenta.add(tematService.getTemat(projekt.getTemat().getId()).getId());
+            }
+        }catch (Exception e){
+        }
         List<TematResponse> tematy = tematService.getAllTematy();
         for (TematResponse temat:  tematy) {
             List<ProjektResponse> projekty = projektService.getProjektyByTematId(temat.getId());
@@ -49,6 +61,7 @@ class WebMvcController {
         }
         Collections.sort(tematy);
         model.addAttribute("tematy",tematy);
+        model.addAttribute("tematyStudenta",tematyStudenta);
         return "index";
     }
 
@@ -115,6 +128,6 @@ class WebMvcController {
         String nrAlbumu = principal.getName();
         Student student = studentService.getStudentByNrAlbumu(nrAlbumu);
         tematService.rezerwujTemat(id, student.getId());
-        return index(model);
+        return index(model,principal);
     }
 }

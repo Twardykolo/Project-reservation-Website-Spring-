@@ -50,9 +50,9 @@
             <td class="table-center" th:text="${temat.getIsReserved() ? 'Nie' : 'Tak'}"></td>
             <td class="table-center" sec:authorize="hasRole('ROLE_USER')">
                 <a>
-                    <button class="btn btn-sm btn-secondary disabled" th:if="${temat.getLiczbaOsob()>2}" >+</button>
+                    <button class="btn btn-sm btn-secondary disabled" th:if="${temat.getLiczbaOsob()>=2 || tematyStudenta.contains(temat.getId())}" >+</button>
                     <form th:action="${'/zarezerwujTemat/'+temat.getId()}">
-                        <button class="btn btn-sm btn-primary" th:unless="${temat.getLiczbaOsob()>2}" >+</button>
+                        <button class="btn btn-sm btn-primary" th:unless="${temat.getLiczbaOsob()>=2 || tematyStudenta.contains(temat.getId())}" >+</button>
                     </form>
                 </a>
             </td>
