@@ -160,10 +160,25 @@ class WebMvcController {
         return index(model,principal);
     }
 
+    @RequestMapping("/projekty/grade/{id}")
+    String gradeProject(Model model,Principal principal,@PathVariable("id") Long projektId,@RequestParam("mark") String formData){
+        if(!checkIfLoggedInAsAdmin(model,principal))
+            return index(model,principal);
+        Double mark = Double.parseDouble(formData);
+        projektService.gradeProject(projektId,mark);
+        return adminPanel(model,principal);
+    }
+
     Boolean checkIfLoggedInAsUser(Model model,Principal principal){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(
+        boolean isUser = authentication.getAuthorities().stream().anyMatch(
                 r-> r.getAuthority().equals("ROLE_USER"));
+        return isUser;
+    }
+    Boolean checkIfLoggedInAsAdmin(Model model,Principal principal){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(
+                r-> r.getAuthority().equals("ROLE_ADMIN"));
         return isAdmin;
     }
 }

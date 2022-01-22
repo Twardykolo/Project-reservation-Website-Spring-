@@ -49,7 +49,7 @@
                 </a>
             </td>
             <td class="table-center" th:if="${projekt.getFileUrl()!=null && projekt.getMark()==null}"><!-- Ocena-->
-                <form th:action="${'/projkety/grade/'+projekt.getId()}">
+                <form th:action="${'/projekty/grade/'+projekt.getId()}">
                     <div class="input-group mb-3">
                         <select class="form-select" name="mark" id="input-mark">
                             <option value="2">2.0</option>
@@ -65,7 +65,7 @@
                 </form>
             </td>
             <td class="table-center" th:if="${projekt.getFileUrl()==null && projekt.getMark()==null}"><!-- Ocena-->
-                <form th:action="${'/projkety/grade/'+projekt.getId()}">
+                <form th:action="${'/projekty/grade/'+projekt.getId()}">
                     <div class="input-group mb-3">
                         <select class="form-select" name="mark" id="input-mark" disabled>
                             <option value="2">2.0</option>
