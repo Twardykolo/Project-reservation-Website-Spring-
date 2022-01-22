@@ -1,8 +1,6 @@
 package com.Adam.Lucja.JavaPRO.Controller;
 
-import com.Adam.Lucja.JavaPRO.DTO.Request.AuthRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Request.StudentRequest;
-import com.Adam.Lucja.JavaPRO.DTO.Response.AuthResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.ProjektResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.StudentResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.TematResponse;
@@ -41,7 +39,7 @@ class WebMvcController {
     ProjektService projektService;
 
     @Autowired
-    Projekt2StudentService projekt2StudentServiceService;
+    Projekt2StudentService projekt2StudentService;
 
     @RequestMapping({"/","/index"})
     String index(Model model, Principal principal) {
@@ -49,7 +47,7 @@ class WebMvcController {
         try {
             String nrAlbumu = principal.getName();
             Student student = studentService.getStudentByNrAlbumu(nrAlbumu);
-            List<ProjektResponse> projektyStudenta = projekt2StudentServiceService.getProjektByStudentId(student.getId());
+            List<ProjektResponse> projektyStudenta = projekt2StudentService.getProjektByStudentId(student.getId());
             for (ProjektResponse projekt : projektyStudenta) {
                 tematyStudenta.add(tematService.getTemat(projekt.getTemat().getId()).getId());
             }
@@ -83,7 +81,7 @@ class WebMvcController {
 
         String nrAlbumu = principal.getName();
         Student student = studentService.getStudentByNrAlbumu(nrAlbumu);
-        List<ProjektResponse> projektyStudenta = projekt2StudentServiceService.getProjektByStudentId(student.getId());
+        List<ProjektResponse> projektyStudenta = projekt2StudentService.getProjektByStudentId(student.getId());
         model.addAttribute("projekty", projektyStudenta);
         return "account";
     }
@@ -107,7 +105,8 @@ class WebMvcController {
 
         List<ProjektResponse> projekty = projektService.getAllProjekty();
         for(ProjektResponse projekt : projekty){
-            List<StudentResponse> studenci = projekt2StudentServiceService.getStudenciByProjektId(projekt.getId());
+            List<StudentResponse> studenci = projekt2StudentService.getStudenciByProjektId(projekt.getId());
+            System.out.println(studenci.size());
             projekt.setStudenci(studenci);
         }
         model.addAttribute("projekty",projekty);
