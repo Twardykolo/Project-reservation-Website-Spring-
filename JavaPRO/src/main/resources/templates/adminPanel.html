@@ -80,8 +80,11 @@
                     </div>
                 </form>
             </td>
-            <td class="table-center" th:if="${projekt.getMark()!=null}">
-                <p class="mb-0" th:text="${projekt.getMark()}"></p>
+            <td class="table-center" style="vertical-align: middle;" th:if="${projekt.getMark()!=null}">
+                <div class="input-group mb-3">
+                    <p class="mb-0" th:text="${projekt.getMark()}"></p>
+                    <button class="btn btn-md btn-primary input-group-text">Oceń ponownie</button>
+                </div>
             </td>
         </tr>
         </tbody>
