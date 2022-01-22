@@ -57,8 +57,8 @@
             <td class="table-center" th:text="${temat.getIsReserved() ? 'Nie' : 'Tak'}"></td>
             <td class="table-center" sec:authorize="hasRole('ROLE_USER')">
                 <a>
-                    <button class="btn btn-sm btn-plas btn-secondary disabled" th:if="${temat.getLiczbaOsob()>=2 || tematyStudenta.contains(temat.getId())}" >+</button>
-                    <button class="btn btn-sm btn-plas btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#mojModal" th:onclick="|ustawTematId('${temat.getId()}')|" th:unless="${temat.getLiczbaOsob()>=2 || tematyStudenta.contains(temat.getId())}" >+</button>
+                    <button class="btn btn-sm btn-plas btn-secondary disabled" th:if="${temat.getLiczbaOsob()>=2 || tematyStudenta.contains(temat.getId()) || tematyStudenta.size()>=2}" >+</button>
+                    <button class="btn btn-sm btn-plas btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#mojModal" th:onclick="|ustawTematId('${temat.getId()}')|" th:unless="${temat.getLiczbaOsob()>=2 || tematyStudenta.contains(temat.getId()) || tematyStudenta.size()>=2}" >+</button>
                 </a>
             </td>
 
