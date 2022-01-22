@@ -106,7 +106,6 @@ class WebMvcController {
         List<ProjektResponse> projekty = projektService.getAllProjekty();
         for(ProjektResponse projekt : projekty){
             List<StudentResponse> studenci = projekt2StudentService.getStudenciByProjektId(projekt.getId());
-            System.out.println(studenci.size());
             projekt.setStudenci(studenci);
         }
         model.addAttribute("projekty",projekty);
