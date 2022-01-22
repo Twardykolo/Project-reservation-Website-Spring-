@@ -66,13 +66,7 @@ class WebMvcController {
         return "index";
     }
 
-    @PostMapping("/login")
-    String loginDetails(@RequestBody MultiValueMap<String, String> formData) {
-        AuthRequest authRequest = new AuthRequest(formData.get("username").get(0),formData.get("password").get(0));
-        AuthResponse response = authService.getAuthToken(authRequest);
-        return "login";
-    }
-    @GetMapping("/login")
+    @RequestMapping("/login")
     String login() {
         return "login";
     }
@@ -84,10 +78,7 @@ class WebMvcController {
 
     @GetMapping("/account")
     String account(Model model, Principal principal) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(
-                r-> r.getAuthority().equals("ROLE_USER"));
-        if(!isAdmin)
+        if(!checkIfLoggedInAsUser(model,principal))
             return index(model,principal);
 
         String nrAlbumu = principal.getName();
@@ -99,6 +90,8 @@ class WebMvcController {
 
     @RequestMapping("/uploadFile/{id}")
     String uploadFile(Model model, Principal principal, @PathVariable Long id, @RequestParam("file") MultipartFile file) {
+        if(!checkIfLoggedInAsUser(model,principal))
+            return index(model,principal);
         projektService.uploadFile(id,file);
         return account(model,principal);
     }
@@ -130,11 +123,12 @@ class WebMvcController {
         model.addAttribute("loginError", true);
         return "login";
     }
+
 //    @GetMapping("/specialController")
 //    String specialController(){
 //        return "tak";
 //    }
-//
+    
     @RequestMapping("/register")
     String register(@RequestBody MultiValueMap<String, String> formData, Model model){
         StudentRequest studentRequest = new StudentRequest(
@@ -144,7 +138,6 @@ class WebMvcController {
                 formData.get("email").get(0),
                 formData.get("nrAlbum").get(0));
         String matchingPassword = formData.get("password2").get(0);
-//        System.out.println("Hasło1: "+studentRequest.getPassword()+"\nHasło2: "+matchingPassword);
         if(matchingPassword.equals(studentRequest.getPassword())){
             try {
                 studentService.createStudent(studentRequest);
@@ -161,9 +154,18 @@ class WebMvcController {
 
     @RequestMapping("/zarezerwujTemat/{id}")
     String reserve(Model model,Principal principal, @PathVariable Long id){
+        if(!checkIfLoggedInAsUser(model,principal))
+            return index(model,principal);
         String nrAlbumu = principal.getName();
         Student student = studentService.getStudentByNrAlbumu(nrAlbumu);
         tematService.rezerwujTemat(id, student.getId());
         return index(model,principal);
+    }
+
+    Boolean checkIfLoggedInAsUser(Model model,Principal principal){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(
+                r-> r.getAuthority().equals("ROLE_USER"));
+        return isAdmin;
     }
 }
