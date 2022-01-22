@@ -26,6 +26,6 @@ public class Projekt {
     private List<Projekt2Student> projekt2student;
     @OneToOne(optional = true)
     private File file;
-    @OneToOne(optional = false)
+    @OneToOne(optional = false,fetch = FetchType.EAGER)
     private Temat temat;
 }
