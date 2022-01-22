@@ -6,6 +6,8 @@ import lombok.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -15,8 +17,8 @@ import java.util.List;
 @Builder
 public class ProjektResponse {
     private Long id;
-    private Timestamp submissionDate;
-    private Timestamp deadline;
+    private String submissionDate;
+    private String deadline;
     private Double mark;
     private Temat temat;
     private String fileUrl;
@@ -25,8 +27,10 @@ public class ProjektResponse {
 
     public ProjektResponse(Projekt projekt){
         this.id= projekt.getId();
-        this.submissionDate=projekt.getSubmissionDate();
-        this.deadline=projekt.getDeadline();
+        if(projekt.getSubmissionDate()!=null)
+            this.submissionDate=new SimpleDateFormat("dd-MM-yyyy hh:mm").format(projekt.getSubmissionDate());
+        if(projekt.getDeadline()!=null)
+            this.deadline=new SimpleDateFormat("dd-MM-yyyy hh:mm").format(projekt.getDeadline());
         this.mark= projekt.getMark();
         this.temat=projekt.getTemat();
         this.name=this.temat.getName();

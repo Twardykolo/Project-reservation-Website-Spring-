@@ -64,7 +64,7 @@ public class TematService {
         ProjektRequest projektRequest = ProjektRequest.builder()
                 .tematId(temat.getId())
                 .studentId(studentId)
-                .deadline(Timestamp.from(Instant.now().minusSeconds(7889232)))
+                .deadline(Timestamp.from(Instant.now().plusSeconds(7889232)))
                 .build();
         projektService.createProjekt(projektRequest);
         Temat savedTemat = tematRepository.save(temat);
