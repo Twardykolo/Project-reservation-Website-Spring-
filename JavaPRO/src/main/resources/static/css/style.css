@@ -96,7 +96,7 @@ figure {
 }
 #fixed {
     /*background-image: url('static/img/fixed-background.jpg');*/
-    height: 300px;
+    height: 400px;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
