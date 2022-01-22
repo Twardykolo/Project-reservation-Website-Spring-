@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ProjektRepository extends JpaRepository<Projekt,String> {
     Optional<Projekt> getById(Long id);
+    Optional<Projekt> getByTemat(Long id);
+
 }

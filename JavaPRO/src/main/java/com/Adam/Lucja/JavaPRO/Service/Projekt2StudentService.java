@@ -1,6 +1,7 @@
 package com.Adam.Lucja.JavaPRO.Service;
 
 import com.Adam.Lucja.JavaPRO.DTO.Response.ProjektResponse;
+import com.Adam.Lucja.JavaPRO.DTO.Response.StudentResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.TematResponse;
 import com.Adam.Lucja.JavaPRO.Entity.Projekt;
 import com.Adam.Lucja.JavaPRO.Entity.Projekt2Student;
@@ -32,6 +33,14 @@ public class Projekt2StudentService {
         List<ProjektResponse> wynikFunkcji = new ArrayList<>();
         for(Projekt2Student projekt2Student: listaProjektow2Student){
             wynikFunkcji.add(new ProjektResponse(projekt2Student.getProjekt()));
+        }
+        return wynikFunkcji;
+    }
+    public List<StudentResponse> getStudenciByProjektId(Long id){
+        List<Projekt2Student> listaProjektow2Student = projekt2StudentRepository.findAllByProjektId(id);
+        List<StudentResponse> wynikFunkcji = new ArrayList<>();
+        for(Projekt2Student projekt2Student: listaProjektow2Student){
+            wynikFunkcji.add(new StudentResponse(projekt2Student.getStudent()));
         }
         return wynikFunkcji;
     }

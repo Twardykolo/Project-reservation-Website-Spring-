@@ -15,6 +15,7 @@ public class TematResponse implements Comparable<TematResponse> {
     private String name;
     private String description;
     private Boolean isReserved;
+    private Integer liczbaOsob;
 
     public TematResponse(Temat temat) {
         this.id=temat.getId();

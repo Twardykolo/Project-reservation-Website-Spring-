@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface Projekt2StudentRepository extends JpaRepository<Projekt2Student,String> {
     List<Projekt2Student> findAllByStudentId(Long id);
+    List<Projekt2Student> findAllByProjektId(Long id);
 }

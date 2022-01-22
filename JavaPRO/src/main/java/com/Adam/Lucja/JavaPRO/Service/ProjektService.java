@@ -52,6 +52,10 @@ public class ProjektService {
         Projekt projekt = projektRepository.getById(id).get();
         return new ProjektResponse(projekt);
     }
+    public ProjektResponse getProjektByTematId(Long id){
+        Projekt projekt = projektRepository.getByTemat(id).get();
+        return new ProjektResponse(projekt);
+    }
     public ProjektResponse createProjekt(ProjektRequest projektRequest){
         Projekt projekt = Projekt.builder()
                 .submissionDate(projektRequest.getSubmissionDate())

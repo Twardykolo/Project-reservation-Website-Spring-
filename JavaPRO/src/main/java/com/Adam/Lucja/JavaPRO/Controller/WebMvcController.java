@@ -45,6 +45,11 @@ class WebMvcController {
     @RequestMapping({"/","/index"})
     String index(Model model) {
         List<TematResponse> tematy = tematService.getAllTematy();
+        for (TematResponse temat:  tematy) {
+            ProjektResponse projekt = projektService.getProjektByTematId(temat.getId());
+            List<StudentResponse> listaStudentow = projekt2StudentServiceService.getStudenciByProjektId(projekt.getId());
+            temat.setLiczbaOsob(listaStudentow.size());
+        }
         Collections.sort(tematy);
         model.addAttribute("tematy",tematy);
         return "index";
@@ -106,5 +111,13 @@ class WebMvcController {
             model.addAttribute("passwordDontMatch");
         }
         return "register";
+    }
+
+    @RequestMapping("/zarezerwujTemat/{id}")
+    String reserve(Model model,Principal principal, @PathVariable Long id){
+        String nrAlbumu = principal.getName();
+        Student student = studentService.getStudentByNrAlbumu(nrAlbumu);
+        tematService.rezerwujTemat(id, student.getId());
+        return index(model);
     }
 }
