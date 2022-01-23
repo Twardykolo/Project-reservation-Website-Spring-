@@ -135,6 +135,11 @@ ul {
 table{
     max-width: 80%;
 }
+.table-admin{
+     max-width: 100%;
+     min-width: 1050px;
+ }
+
 .flex-wysrodkuj{
     display: flex;
     justify-content: center;
@@ -146,7 +151,4 @@ td>p,ul,li{
 }
 .marginsy{
     margin: 0px;
-}
-.big-btn{
-    width: 100%;
 }
