@@ -47,10 +47,10 @@
     <table class="table table-hover rounded-top">
         <thead class="thead-dark text-center">
             <tr>
-                <th class="table-center" scope="col" rowspan="2">Nazwa</th>
-                <th class="table-center" scope="col" colspan="2">Studenci</th>
-                <th class="table-center" scope="col" rowspan="2">Plik</th>
-                <th class="table-center" scope="col" rowspan="2">Ocena</th>
+                <th class="table-center" style="width: 35%" scope="col" rowspan="2">Nazwa</th>
+                <th class="table-center" style="width: 30%"scope="col" colspan="2">Studenci</th>
+                <th class="table-center" style="width: 20%" scope="col" rowspan="2">Plik</th>
+                <th class="table-center" style="width: 15%" scope="col" rowspan="2">Ocena</th>
             </tr>
             <tr>
                 <th class="table-center" scope="col">Imię i nazwisko</th>
@@ -62,12 +62,12 @@
                 <!-- Nazwa-->
                 <td scope="row" th:text="${projekt.getName()}"></td>
                 <!-- Studenci-->
-                <td>
+                <td class="table-center">
                     <ul>
                         <li th:each="student : ${projekt.getStudenci()}" th:text="${student.getName()}+' '+${student.getSurname()}"></li>
                     </ul>
                 </td>
-                <td>
+                <td class="table-center">
                     <ul>
                         <li th:each="student : ${projekt.getStudenci()}" th:text="${student.getNrAlbum()}"></li>
                     </ul>
@@ -87,12 +87,13 @@
                     <form th:action="${'/projekty/grade/'+projekt.getId()}">
                         <div class="input-group">
                             <select class="form-select" name="mark" id="input-mark">
+                                <option selected>Rozwiń...</option>
                                 <option value="2">2.0</option>
                                 <option value="3">3.0</option>
                                 <option value="3.5">3.5</option>
                                 <option value="4">4.0</option>
                                 <option value="4.5">4.5</option>
-                                <option value="5" selected>5.0</option>
+                                <option value="5" >5.0</option>
                             </select>
                             <button class="btn btn-md btn-primary input-group-text" for="input-mark">Oceń</button>
                         </div>
@@ -103,12 +104,13 @@
                     <form th:action="${'/projekty/grade/'+projekt.getId()}">
                         <div class="input-group">
                             <select class="form-select" name="mark" id="input-mark" disabled>
+                                <option selected>Rozwiń...</option>
                                 <option value="2">2.0</option>
                                 <option value="3">3.0</option>
                                 <option value="3.5">3.5</option>
                                 <option value="4">4.0</option>
                                 <option value="4.5">4.5</option>
-                                <option value="5" selected>5.0</option>
+                                <option value="5">5.0</option>
                             </select>
                             <button class="btn btn-md btn-secondary input-group-text disabled" for="input-mark">Oceń</button>
                         </div>

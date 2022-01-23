@@ -86,6 +86,7 @@ form{
 .table-account{
     max-width: 660px;
     margin:auto;
+    margin-bottom: 6rem;
 }
 
 .navbar-collapse {

@@ -49,10 +49,10 @@
         </div>
     </div>
     <form th:action="@{/login}" method="post">
-        <label for="nrAlbum" class="sr-only"></label>
-        <input type="text" id="nrAlbum" class="form-control" name="username" placeholder="Numer albumu" required autofocus>
-        <label for="password" class="sr-only"></label>
-        <input type="password" id="password" placeholder="Hasło" name="password" class="form-control mt-2" required>
+        <label for="nrAlbum" class="sr-only">Numer albumu</label>
+        <input type="text" id="nrAlbum" class="form-control mb-2 mt-1" name="username" placeholder="Numer albumu" required autofocus>
+        <label for="password" class="sr-only">Hasło</label>
+        <input type="password" id="password" placeholder="Hasło" name="password" class="form-control mb-2 mt-1" required>
         <div class="login-btn mt-3 mb-5">
             <input type="submit" value="Zaloguj" class="btn btn-lg btn-primary col-xs-6 col-sm-4"/>
         </div>
