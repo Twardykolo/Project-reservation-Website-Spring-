@@ -43,7 +43,6 @@ public class TematService {
                 if(projekt.getFile()!=null || projekt.getMark()!=null)
                     continue;
             }catch (Exception e){
-                continue;
             }
             wynikFunkcji.add(new TematResponse(temat));
         }
