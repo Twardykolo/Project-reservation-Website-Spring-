@@ -3,6 +3,7 @@ package com.Adam.Lucja.JavaPRO.Entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(schema="projekty" ,name="tematy")
@@ -22,4 +23,6 @@ public class Temat {
     private String description;
     @Column(nullable = false)
     private Boolean isReserved;
+    @Column(nullable = false)
+    private Timestamp deadline;
 }

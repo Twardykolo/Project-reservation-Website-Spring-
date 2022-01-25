@@ -1,0 +1,2 @@
+ALTER TABLE projekty.tematy
+    ADD deadline TIMESTAMP WITHOUT TIME ZONE;

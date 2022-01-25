@@ -7,6 +7,7 @@ import com.Adam.Lucja.JavaPRO.DTO.Response.StudentResponse;
 import com.Adam.Lucja.JavaPRO.DTO.Response.TematResponse;
 import com.Adam.Lucja.JavaPRO.Entity.Student;
 import com.Adam.Lucja.JavaPRO.Service.*;
+import lombok.SneakyThrows;
 import org.apache.tomcat.util.descriptor.web.ErrorPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
@@ -23,6 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import java.security.Principal;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -170,11 +174,16 @@ class WebMvcController {
         return index(model,principal);
     }
     @RequestMapping("/dodajTemat")
+    @SneakyThrows
     String addTemat(Model model,Principal principal, @RequestBody MultiValueMap<String, String> formData){
         if(!checkIfLoggedInAsAdmin(model,principal))
             return index(model,principal);
+//        System.out.println(formData.get("deadline").get(0));
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date d = formatter.parse(formData.get("deadline").get(0));
         TematRequest request = new TematRequest(formData.get("name").get(0),
                                                 formData.get("description").get(0),
+                                                new Timestamp(d.getTime()),
                                                 Optional.of(false));
         tematService.createTemat(request);
         return adminPanel(model,principal);

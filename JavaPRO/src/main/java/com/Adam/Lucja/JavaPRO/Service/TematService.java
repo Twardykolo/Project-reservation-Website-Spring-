@@ -57,6 +57,7 @@ public class TematService {
         Temat temat = Temat.builder()
                 .name(tematRequest.getName())
                 .description(tematRequest.getDescription())
+                .deadline(tematRequest.getDeadline())
                 .isReserved(false).build();
         Temat savedTemat = tematRepository.save(temat);
         TematResponse zwrotka = new TematResponse(savedTemat);
@@ -77,6 +78,7 @@ public class TematService {
         temat.setName(tematRequest.getName());
         temat.setDescription(tematRequest.getDescription());
         temat.setIsReserved(tematRequest.getIsReserved().get());
+        temat.setDeadline(tematRequest.getDeadline());
         Temat savedTemat = tematRepository.save(temat);
         return new TematResponse(savedTemat);
     }
@@ -92,7 +94,8 @@ public class TematService {
         ProjektRequest projektRequest = ProjektRequest.builder()
                 .tematId(temat.getId())
                 .studentId(studentId)
-                .deadline(Timestamp.from(Instant.now().plusSeconds(7889232)))
+//                .deadline(Timestamp.from(Instant.now().plusSeconds(7889232)))
+                .deadline(temat.getDeadline())
                 .build();
         try {
             projektService.getOneProjektByTematId(id);
