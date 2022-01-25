@@ -50,6 +50,8 @@ html, body{
 }
 .img-autor{
     margin: 1rem;
+    max-width: 60%;
+    box-shadow: 0 0 8px 8px #fff inset;
 }
 footer{
     background-color: #373737;
@@ -159,4 +161,9 @@ td>p,ul,li{
 }
 .table-zainteresowania{
     width: 100%;
+}
+.btn-date{
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
 }

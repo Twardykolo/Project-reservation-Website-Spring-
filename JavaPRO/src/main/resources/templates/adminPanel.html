@@ -16,12 +16,23 @@
             elemo.style.display = "unset";
             elemm.disabled = false;
         }
+        function changeDate(id){
+            var elemz = document.getElementById("zmien"+id);
+            var elemo = document.getElementById("ok"+id);
+            var elemm = document.getElementById("input-deadline"+id);
+            elemz.style.display = "none";
+            elemo.style.display = "unset";
+            elemm.disabled = false;
+        }
+        $(function(){
+            $('[type="date"]').prop('min', function(){
+                return new Date().toJSON().split('T')[0];
+            });
+        });
+
     </script>
 </head>
 <body>
-
-<!--DODAĆ: WYŚWIETLANIE NIEWYBRANYCH TEMATOW-->
-<!--DODAĆ: DODAWANIE TEMATÓW Z POZIOMU ADMINA DO BAZY-->
 
 <!--Navigation-->
 <div th:insert="navbar"></div>
@@ -34,7 +45,7 @@
         </div>
     </div>
     <hr class="my-4">
-<!--    Nagłówek doOceny-->
+<!--    Nagłówek - panel oceniania-->
     <div class="col-12 text-center">
         <h2>
             Projekty do oceny
@@ -42,19 +53,20 @@
     </div>
 </div>
 
-<!--Panel administratora-->
+<!--Panel oceniania-->
 <div class="container-fluid flex-wysrodkuj">
     <table class="table table-hover col-xs-12">
         <thead class="thead-dark text-center">
             <tr>
-                <th class="table-center" style="width: calc((100% - 290px)/2)" scope="col" rowspan="2">Nazwa</th>
-                <th class="table-center" style="width: calc((100% - 290px)/2)"scope="col" colspan="2">Studenci</th>
+                <th class="table-center" style="width: calc((100% - 490px)/2)" scope="col" rowspan="2">Nazwa</th>
+                <th class="table-center" style="width: calc((100% - 490px)/2)"scope="col" colspan="2">Studenci</th>
+                <th class="table-center" style="width: 200px" scope="col" rowspan="2">Termin końcowy</th>
                 <th class="table-center" style="width: 130px" scope="col" rowspan="2">Plik</th>
                 <th class="table-center" style="width: 160px" scope="col" rowspan="2">Ocena</th>
             </tr>
             <tr>
-                <th class="table-center" scope="col">Imię i nazwisko</th>
-                <th class="table-center" scope="col">Nr albumu</th>
+                <th class="table-center" scope="col" style="width: 200px">Imię i nazwisko</th>
+                <th class="table-center" scope="col" style="width: 100px">Nr albumu</th>
             </tr>
         </thead>
         <tbody>
@@ -71,6 +83,10 @@
                     <ul>
                         <li th:each="student : ${projekt.getStudenci()}" th:text="${student.getNrAlbum()}"></li>
                     </ul>
+                </td>
+                <!-- Termin końcowy-->
+                <td class="table-center">
+                    <p th:text="${projekt.getDeadline()}"></p>
                 </td>
                 <!-- Plik-->
                 <td class="table-center" th:if="${projekt.getFileUrl()==null}">
@@ -148,7 +164,7 @@
         </h2>
     </div>
 </div>
-
+<!--Dodawanie tematów-->
 <div class="text-center">
     <form th:action="@{/dodajTemat}" method="post">
         <label class="sr-only" for="nazwa" >Nazwa tematu</label>
@@ -156,7 +172,7 @@
         <label class="sr-only" for="opis" >Opis</label>
         <input class="form-control mb-2 mt-1" type="text" id="opis"  name="description" required>
         <label class="sr-only" for="deadline" >Termin końcowy</label>
-        <input class="form-control mb-2 mt-1" type="date" id="deadline"  name="deadline" required>
+        <input class="form-control min-today mb-2 mt-1" type="date" id="deadline"  name="deadline" min='1899-01-01' max='2000-13-13' required>
         <div class="login-btn mt-3 mb-5 text-center">
             <button class="btn btn-md btn-primary col-xs-6 col-sm-4">Dodaj temat</button>
         </div>
@@ -173,13 +189,14 @@
     </div>
 </div>
 
-<!--Panel administratora-->
+<!--Wolne tematy-->
 <div class="container-fluid flex-wysrodkuj">
     <table class="table table-hover rounded-top" id="table-add-temat">
         <thead class="thead-dark text-center">
             <tr>
-                <th class="table-center" style="width: 40%" scope="col">Nazwa</th>
-                <th class="table-center" style="width: 60%" scope="col">Opis</th>
+                <th class="table-center" style="width: 35%" scope="col">Nazwa</th>
+                <th class="table-center" style="width: 50%" scope="col">Opis</th>
+                <th class="table-center" style="width: 15%" scope="col">Termin końcowy</th>
             </tr>
         </thead>
         <tbody>
@@ -188,6 +205,18 @@
                 <td th:text="${temat.getName()}"></td>
                 <!-- Opis-->
                 <td th:text="${temat.getDescription()}"></td>
+                <!-- Termin końcowy-->
+                <td class="table-center" style="vertical-align: middle;">
+                    <form>
+                        <div class="input-group">
+                            <input class="form-control min-today mb-2 mt-1" type="date" th:id="input-deadline+${temat.getId()}"  name="input-deadline" min='1899-01-01' max='2000-13-13' disabled>
+                            <button class="btn btn-md btn-primary input-group-text btn-date" for="input-deadline" th:id="zmien+${temat.getId()}"
+                                    th:onclick="|event.preventDefault(); changeDate('${temat.getId()}');|" style="border-radius: 0px 4px 4px 0px;">Zmień</button>
+                            <button class="btn btn-md btn-primary input-group-text btn-date" for="input-deadline" th:id="ok+${temat.getId()}" style="display: none">Ok</button>
+                        </div>
+                    </form>
+                </td>
+
             </tr>
         </tbody>
     </table>
