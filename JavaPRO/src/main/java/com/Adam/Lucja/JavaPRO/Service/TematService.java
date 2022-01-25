@@ -83,6 +83,13 @@ public class TematService {
         return new TematResponse(savedTemat);
     }
 
+    public TematResponse updateTematDeadline(Long id,Timestamp deadline) {
+        Temat temat = tematRepository.findById(id).get();
+        temat.setDeadline(deadline);
+        Temat savedTemat = tematRepository.save(temat);
+        return new TematResponse(savedTemat);
+    }
+
     public void deleteTemat(Long id) {
         Temat temat = tematRepository.findById(id).get();
         tematRepository.delete(temat);

@@ -28,9 +28,9 @@ public class ProjektResponse {
     public ProjektResponse(Projekt projekt){
         this.id= projekt.getId();
         if(projekt.getSubmissionDate()!=null)
-            this.submissionDate=new SimpleDateFormat("dd-MM-yyyy hh:mm").format(projekt.getSubmissionDate());
+            this.submissionDate=new SimpleDateFormat("dd-MM-yyyy").format(projekt.getSubmissionDate());
         if(projekt.getDeadline()!=null)
-            this.deadline=new SimpleDateFormat("dd-MM-yyyy hh:mm").format(projekt.getDeadline());
+            this.deadline=new SimpleDateFormat("dd-MM-yyyy").format(projekt.getDeadline());
         this.mark= projekt.getMark();
         this.temat=projekt.getTemat();
         this.name=this.temat.getName();

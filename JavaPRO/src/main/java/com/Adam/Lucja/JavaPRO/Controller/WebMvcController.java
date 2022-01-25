@@ -203,6 +203,23 @@ class WebMvcController {
         return adminPanel(model,principal);
     }
 
+    @RequestMapping("/tematy/deadline/{id}")
+    @SneakyThrows
+    String changeTematDeadline(Model model,Principal principal,@PathVariable("id") Long tematId,@RequestParam("deadline") String formData){
+        if(!checkIfLoggedInAsAdmin(model,principal))
+            return index(model,principal);
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date d = formatter.parse(formData);
+        Date today = new Date();
+        if(!d.after(today)){
+            model.addAttribute("invalid-date", true);
+            return adminPanel(model,principal);
+        }
+        Timestamp deadline = new Timestamp(d.getTime());
+        tematService.updateTematDeadline(tematId,deadline);
+        return adminPanel(model,principal);
+    }
+
     Boolean checkIfLoggedInAsUser(Model model,Principal principal){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean isUser = authentication.getAuthorities().stream().anyMatch(
