@@ -26,7 +26,7 @@ public class TematResponse implements Comparable<TematResponse> {
         this.description= temat.getDescription();
         this.isReserved=temat.getIsReserved();
         this.name= temat.getName();
-        this.deadline = new SimpleDateFormat("yyyyMMdd").format(temat.getDeadline().getTime());
+        this.deadline = new SimpleDateFormat("dd-MM-yyyy").format(temat.getDeadline().getTime());
     }
 
     public int compareTo(TematResponse tematResponse2){
