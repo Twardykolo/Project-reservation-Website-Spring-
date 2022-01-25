@@ -181,6 +181,11 @@ class WebMvcController {
 //        System.out.println(formData.get("deadline").get(0));
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date d = formatter.parse(formData.get("deadline").get(0));
+        Date today = new Date();
+        if(!d.after(today)){
+            model.addAttribute("invalid-date", true);
+            return adminPanel(model,principal);
+        }
         TematRequest request = new TematRequest(formData.get("name").get(0),
                                                 formData.get("description").get(0),
                                                 new Timestamp(d.getTime()),
