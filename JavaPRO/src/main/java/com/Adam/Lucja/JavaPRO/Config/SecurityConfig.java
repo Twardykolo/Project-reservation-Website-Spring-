@@ -25,9 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LoginDetailsService loginDetailsService;
 
-//    @Autowired
-//    private JwtAuthenticationEntryPoint unauthorizedHandler;
-//
     @Bean
     public JwtAuthenticationFilter authenticationJwtTokenFilter(){
         return new JwtAuthenticationFilter();

@@ -60,7 +60,7 @@ class WebMvcController {
             }
         }catch (Exception e){
         }
-        List<TematResponse> tematy = tematService.getAllTematy();
+        List<TematResponse> tematy = tematService.getAllAviableTematy();
         for (TematResponse temat:  tematy) {
             List<ProjektResponse> projekty = projektService.getProjektyByTematId(temat.getId());
             temat.setLiczbaOsob(projekty.size());

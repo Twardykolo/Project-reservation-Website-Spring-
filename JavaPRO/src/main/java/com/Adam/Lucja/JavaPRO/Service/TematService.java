@@ -3,6 +3,7 @@ package com.Adam.Lucja.JavaPRO.Service;
 import com.Adam.Lucja.JavaPRO.DTO.Request.ProjektRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Request.TematRequest;
 import com.Adam.Lucja.JavaPRO.DTO.Response.TematResponse;
+import com.Adam.Lucja.JavaPRO.Entity.Projekt;
 import com.Adam.Lucja.JavaPRO.Entity.Temat;
 import com.Adam.Lucja.JavaPRO.Repository.TematRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,20 @@ public class TematService {
         List<Temat> tematy =tematRepository.findAll();
         List<TematResponse> wynikFunkcji = new ArrayList<>();
         for (Temat temat: tematy) {
+            wynikFunkcji.add(new TematResponse(temat));
+        }
+        return wynikFunkcji;
+    }
+    public List<TematResponse> getAllAviableTematy(){
+        List<Temat> tematy =tematRepository.findAll();
+        List<TematResponse> wynikFunkcji = new ArrayList<>();
+        for (Temat temat: tematy) {
+            try{
+                Projekt projekt = projektService.getOneProjektByTematId(temat.getId());
+                if(projekt.getFile()!=null || projekt.getMark()!=null)
+                    continue;
+            }catch (Exception e){
+            }
             wynikFunkcji.add(new TematResponse(temat));
         }
         return wynikFunkcji;

@@ -26,15 +26,11 @@
 </div>
 
 <!--Panel użytkownika-->
-<div class="container-fluid table-account">
-    <table class="table table-hover" th:each="projekt, i : ${projekty}">
-        <tbody class="thead-dark text-center">
-        <tr >
-            <th colspan="2">
-                <h3  th:text="${'Informacje o projekcie #' + {i.index+1}}">
-
-                </h3>
-            </th>
+<div class="container-fluid">
+    <table class="table table-hover table-account" th:each="projekt, i : ${projekty}">
+        <tbody class="text-center">
+        <tr class="thead-dark">
+            <h3 class="text-center" th:text="${'Informacje o projekcie #' + {i.index+1}}"></h3>
         </tr>
         <tr>
             <th>Nazwa</th>
@@ -60,7 +56,7 @@
             <td th:if="${projekt.getFileUrl()==null}">
                 <form th:action="${'/uploadFile/'+projekt.getId()}" method="post" enctype="multipart/form-data">
                     <div class="input-group">
-                        <input type="file" class="form-control" id="inputGroupFile" aria-describedby="inputGroupFileAddon" aria-label="Upload" name="file"/>
+                        <input type="file" class="form-control" id="inputGroupFile" aria-describedby="inputGroupFileAddon" aria-label="Upload" name="file" required/>
                         <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon">Prześlij</button>
                     </div>
                 </form>
@@ -81,8 +77,6 @@
         </tbody>
     </table>
 </div>
-
-
 
 <!--Footer-->
 <div th:insert="footer"></div>

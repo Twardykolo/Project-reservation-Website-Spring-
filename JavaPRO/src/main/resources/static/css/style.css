@@ -86,6 +86,7 @@ form{
 .table-account{
     max-width: 660px;
     margin:auto;
+    margin-bottom: 6rem;
 }
 
 .navbar-collapse {
@@ -96,7 +97,7 @@ figure {
 }
 #fixed {
     /*background-image: url('static/img/fixed-background.jpg');*/
-    height: 300px;
+    height: 400px;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -134,6 +135,7 @@ ul {
 table{
     max-width: 80%;
 }
+
 .flex-wysrodkuj{
     display: flex;
     justify-content: center;
@@ -146,6 +148,7 @@ td>p,ul,li{
 .marginsy{
     margin: 0px;
 }
-.big-btn{
-    width: 100%;
+.zainteresowania img{
+    height: 40px;
+    width: 40px;
 }
