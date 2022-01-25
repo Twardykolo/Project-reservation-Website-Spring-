@@ -148,7 +148,15 @@ td>p,ul,li{
 .marginsy{
     margin: 0px;
 }
-.zainteresowania img{
-    height: 40px;
-    width: 40px;
+.zainteresowania svg{
+    height: 30px;
+    width: 30px;
+    color: #181846;
+}
+
+.zainteresowani{
+    width: 50%;
+}
+.table-zainteresowania{
+    width: 100%;
 }
