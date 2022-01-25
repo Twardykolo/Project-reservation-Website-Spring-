@@ -46,7 +46,7 @@
             <th class="table-center" style="width: 45%" scope="col">Temat projektu</th>
             <th class="table-center" style="width: 50%" scope="col">Opis</th>
             <th class="table-center" style="width: 10%" scope="col">Wolny</th>
-            <th class="table-center" style="width: 10%" scope="col" sec:authorize="hasRole('ROLE_USER')">Zarezerwuj</th>
+            <th class="table-center" style="width: 10%" scope="col" sec:authorize="hasRole('ROLE_USER') && !hasRole('ROLE_ADMIN')">Zarezerwuj</th>
         </tr>
         </thead>
         <tbody>
@@ -55,7 +55,7 @@
             <td th:text="${temat.getName()}"></td>
             <td th:text="${temat.getDescription()}"></td>
             <td class="table-center" th:text="${temat.getIsReserved() ? 'Nie' : 'Tak'}"></td>
-            <td class="table-center" sec:authorize="hasRole('ROLE_USER')">
+            <td class="table-center" sec:authorize="hasRole('ROLE_USER') && !hasRole('ROLE_ADMIN')">
                 <a>
                     <button class="btn btn-sm btn-plas btn-secondary disabled" th:if="${temat.getLiczbaOsob()>=2 || tematyStudenta.contains(temat.getId()) || tematyStudenta.size()>=2}" >+</button>
                     <button class="btn btn-sm btn-plas btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#mojModal" th:onclick="|ustawTematId('${temat.getId()}')|" th:unless="${temat.getLiczbaOsob()>=2 || tematyStudenta.contains(temat.getId()) || tematyStudenta.size()>=2}" >+</button>
