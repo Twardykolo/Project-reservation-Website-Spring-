@@ -19,10 +19,12 @@
         function changeDate(id){
             var elemz = document.getElementById("zmien"+id);
             var elemo = document.getElementById("ok"+id);
-            var elemm = document.getElementById("input-deadline"+id);
+            var elemt = document.getElementById("text-deadline"+id);
+            var elemi = document.getElementById("input-deadline"+id);
             elemz.style.display = "none";
             elemo.style.display = "unset";
-            elemm.disabled = false;
+            elemt.style.display = "none";
+            elemi.style.display = "unset";
         }
         $(function(){
             $('[type="date"]').prop('min', function(){
@@ -194,9 +196,9 @@
     <table class="table table-hover rounded-top" id="table-add-temat">
         <thead class="thead-dark text-center">
             <tr>
-                <th class="table-center" style="width: 35%" scope="col">Nazwa</th>
-                <th class="table-center" style="width: 50%" scope="col">Opis</th>
-                <th class="table-center" style="width: 15%" scope="col">Termin końcowy</th>
+                <th class="table-center" style="width: 25%" scope="col">Nazwa</th>
+                <th class="table-center" style="width: 55%" scope="col">Opis</th>
+                <th class="table-center" style="width: 20%" scope="col">Termin końcowy</th>
             </tr>
         </thead>
         <tbody>
@@ -207,9 +209,10 @@
                 <td th:text="${temat.getDescription()}"></td>
                 <!-- Termin końcowy-->
                 <td class="table-center" style="vertical-align: middle;">
-                    <form>
+                    <form th:action="${'/tematy/deadline/'+temat.getId()}" method="post">
                         <div class="input-group">
-                            <input class="form-control min-today mb-2 mt-1" type="date" th:id="input-deadline+${temat.getId()}"  name="input-deadline" min='1899-01-01' max='2000-13-13' disabled>
+                            <input class="form-control min-today mb-2 mt-1" type="text" name="deadline" th:id="text-deadline+${temat.getId()}" th:value="${temat.getDeadline()}" disabled>
+                            <input class="form-control min-today mb-2 mt-1" type="date" th:id="input-deadline+${temat.getId()}"  name="deadline" min='1899-01-01' max='2000-13-13' style="display: none">
                             <button class="btn btn-md btn-primary input-group-text btn-date" for="input-deadline" th:id="zmien+${temat.getId()}"
                                     th:onclick="|event.preventDefault(); changeDate('${temat.getId()}');|" style="border-radius: 0px 4px 4px 0px;">Zmień</button>
                             <button class="btn btn-md btn-primary input-group-text btn-date" for="input-deadline" th:id="ok+${temat.getId()}" style="display: none">Ok</button>
