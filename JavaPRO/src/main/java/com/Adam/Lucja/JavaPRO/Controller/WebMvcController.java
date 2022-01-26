@@ -189,8 +189,16 @@ class WebMvcController {
     String gradeProject(Model model,Principal principal,@PathVariable("id") Long projektId,@RequestParam("mark") String formData){
         if(!checkIfAdmin(model,principal))
             return index(model,principal);
-        Double mark = Double.parseDouble(formData);
-        projektService.gradeProject(projektId,mark);
+        Double mark;
+        if(projektId!=null) {
+            try {
+                mark = Double.parseDouble(formData);
+            } catch (NumberFormatException e){
+                model.addAttribute("bledna-ocena", true);
+                return adminPanel(model,principal);
+            }
+            projektService.gradeProject(projektId, mark);
+        }
         return adminPanel(model,principal);
     }
 
