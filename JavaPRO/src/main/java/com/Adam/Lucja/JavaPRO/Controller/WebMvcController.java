@@ -8,12 +8,7 @@ import com.Adam.Lucja.JavaPRO.DTO.Response.TematResponse;
 import com.Adam.Lucja.JavaPRO.Entity.Student;
 import com.Adam.Lucja.JavaPRO.Service.*;
 import lombok.SneakyThrows;
-import org.apache.tomcat.util.descriptor.web.ErrorPage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
-import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -21,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import java.security.Principal;
 import java.sql.Timestamp;
@@ -87,7 +81,7 @@ class WebMvcController {
 
     @GetMapping("/account")
     String account(Model model, Principal principal) {
-        if(!checkIfLoggedInAsUser(model,principal))
+        if(!checkIfUser(model,principal))
             return index(model,principal);
 
         String nrAlbumu = principal.getName();
@@ -99,7 +93,7 @@ class WebMvcController {
 
     @RequestMapping("/uploadFile/{id}")
     String uploadFile(Model model, Principal principal, @PathVariable Long id, @RequestParam("file") MultipartFile file) {
-        if(!checkIfLoggedInAsUser(model,principal))
+        if(!checkIfUser(model,principal))
             return index(model,principal);
         projektService.uploadFile(id,file);
         return account(model,principal);
@@ -108,10 +102,7 @@ class WebMvcController {
     @GetMapping("/adminPanel")
     String adminPanel(Model model, Principal principal) {
         //sprawdzenie czy jest adminem, jak nie to przekierowanie na index
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(
-                r-> r.getAuthority().equals("ROLE_ADMIN"));
-        if(!isAdmin)
+        if(!checkIfAdmin(model,principal))
             return index(model,principal);
 
         List<TematResponse> wolneTematy = tematService.getAllWolneTematy();
@@ -147,8 +138,8 @@ class WebMvcController {
                 formData.get("name").get(0),
                 formData.get("surname").get(0),
                 formData.get("password").get(0),
-                formData.get("email").get(0),
-                formData.get("nrAlbum").get(0));
+                formData.get("email").get(0).toLowerCase(Locale.ROOT),
+                formData.get("nrAlbum").get(0).toLowerCase(Locale.ROOT));
         String matchingPassword = formData.get("password2").get(0);
         if(matchingPassword.equals(studentRequest.getPassword())){
             try {
@@ -166,7 +157,7 @@ class WebMvcController {
 
     @RequestMapping("/zarezerwujTemat/{id}")
     String reserve(Model model,Principal principal, @PathVariable Long id){
-        if(!checkIfLoggedInAsUser(model,principal))
+        if(!checkIfUser(model,principal))
             return index(model,principal);
         String nrAlbumu = principal.getName();
         Student student = studentService.getStudentByNrAlbumu(nrAlbumu);
@@ -176,7 +167,7 @@ class WebMvcController {
     @RequestMapping("/dodajTemat")
     @SneakyThrows
     String addTemat(Model model,Principal principal, @RequestBody MultiValueMap<String, String> formData){
-        if(!checkIfLoggedInAsAdmin(model,principal))
+        if(!checkIfAdmin(model,principal))
             return index(model,principal);
 //        System.out.println(formData.get("deadline").get(0));
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -196,7 +187,7 @@ class WebMvcController {
 
     @RequestMapping("/projekty/grade/{id}")
     String gradeProject(Model model,Principal principal,@PathVariable("id") Long projektId,@RequestParam("mark") String formData){
-        if(!checkIfLoggedInAsAdmin(model,principal))
+        if(!checkIfAdmin(model,principal))
             return index(model,principal);
         Double mark = Double.parseDouble(formData);
         projektService.gradeProject(projektId,mark);
@@ -206,7 +197,7 @@ class WebMvcController {
     @RequestMapping("/tematy/deadline/{id}")
     @SneakyThrows
     String changeTematDeadline(Model model,Principal principal,@PathVariable("id") Long tematId,@RequestParam("deadline") String formData){
-        if(!checkIfLoggedInAsAdmin(model,principal))
+        if(!checkIfAdmin(model,principal))
             return index(model,principal);
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date d = formatter.parse(formData);
@@ -220,13 +211,13 @@ class WebMvcController {
         return adminPanel(model,principal);
     }
 
-    Boolean checkIfLoggedInAsUser(Model model,Principal principal){
+    Boolean checkIfUser(Model model, Principal principal){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean isUser = authentication.getAuthorities().stream().anyMatch(
                 r-> r.getAuthority().equals("ROLE_USER"));
         return isUser;
     }
-    Boolean checkIfLoggedInAsAdmin(Model model,Principal principal){
+    Boolean checkIfAdmin(Model model, Principal principal){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean isAdmin = authentication.getAuthorities().stream().anyMatch(
                 r-> r.getAuthority().equals("ROLE_ADMIN"));

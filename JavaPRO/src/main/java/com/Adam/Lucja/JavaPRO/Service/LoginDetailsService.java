@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Locale;
 
 @Service
 public class LoginDetailsService implements UserDetailsService {
@@ -22,7 +23,7 @@ public class LoginDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Login login = studentRepository.findByUsername(username)
+        Login login = studentRepository.findByUsername(username.toLowerCase(Locale.ROOT))
                 .orElseThrow(() -> new ExpressionException("User Not Found"));
 
         return UserDetailsImpl.build(login);

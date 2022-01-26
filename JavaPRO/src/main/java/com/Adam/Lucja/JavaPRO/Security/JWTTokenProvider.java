@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Locale;
 
 @Component
 public class JWTTokenProvider {
@@ -25,7 +26,7 @@ public class JWTTokenProvider {
         UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authentication.getPrincipal();
 
         return Jwts.builder()
-                .setSubject(userDetailsImpl.getUsername())
+                .setSubject(userDetailsImpl.getUsername().toLowerCase(Locale.ROOT))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime()+tokenValidity))
                 .signWith(SignatureAlgorithm.HS512, secretKey)
