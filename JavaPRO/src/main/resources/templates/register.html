@@ -40,19 +40,19 @@
     <div th:if="${registerSuccess}" class="success alert alert-success d-flex align-items-center justify-content-center" role="alert">
         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
         <div>
-            Rejestracja przebiegła pomyślnie!
+            Udało się zarejestrować użytkownika!
         </div>
     </div>
     <div th:if="${passwordNotMatch}" class="error alert alert-warning d-flex align-items-center justify-content-center" role="alert">
         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
         <div>
-            Podano różne hasła.
+            Podane przez Ciebie hasła różnią się.
         </div>
     </div>
     <div th:if="${registerFailed}" class="error alert alert-danger d-flex align-items-center justify-content-center" role="alert">
         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
         <div>
-            Nie udało się zarejestrować użytkownika.
+            Nie udało się zarejestrować. Użytkownik o takim numerze albumu/e-mailu już istnieje w bazie.
         </div>
     </div>
 
