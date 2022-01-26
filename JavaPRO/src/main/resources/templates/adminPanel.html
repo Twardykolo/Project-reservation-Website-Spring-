@@ -62,13 +62,14 @@
             <tr>
                 <th class="table-center" style="width: calc((100% - 490px)/2)" scope="col" rowspan="2">Nazwa</th>
                 <th class="table-center" style="width: calc((100% - 490px)/2)"scope="col" colspan="2">Studenci</th>
-                <th class="table-center" style="width: 200px" scope="col" rowspan="2">Termin końcowy</th>
+                <th class="table-center" style="width: 150px" scope="col" rowspan="2">Termin końcowy</th>
+                <th class="table-center" style="width: 150px" scope="col" rowspan="2">Data oddania</th>
                 <th class="table-center" style="width: 130px" scope="col" rowspan="2">Plik</th>
                 <th class="table-center" style="width: 160px" scope="col" rowspan="2">Ocena</th>
             </tr>
             <tr>
-                <th class="table-center" scope="col" style="width: 200px">Imię i nazwisko</th>
-                <th class="table-center" scope="col" style="width: 100px">Nr albumu</th>
+                <th class="table-center" scope="col" style="width: 180px">Imię i nazwisko</th>
+                <th class="table-center" scope="col" style="width: 80px">Nr albumu</th>
             </tr>
         </thead>
         <tbody>
@@ -90,9 +91,13 @@
                 <td class="table-center">
                     <p th:text="${projekt.getDeadline()}"></p>
                 </td>
+                <!-- Data oddania-->
+                <td class="table-center">
+                    <p th:text="${projekt.getSubmissionDate()}"></p>
+                </td>
                 <!-- Plik-->
                 <td class="table-center" th:if="${projekt.getFileUrl()==null}">
-                    <p>Brak danych</p>
+                    <p>-</p>
                 </td>
                 <td class="table-center" th:if="${projekt.getFileUrl()!=null}">
                     <a th:href="${projekt.getFileUrl()}">
@@ -105,7 +110,7 @@
                     <form th:action="${'/projekty/grade/'+projekt.getId()}">
                         <div class="input-group">
                             <select class="form-select" name="mark" id="input-mark">
-                                <option selected>Rozwiń...</option>
+                                <option disabled selected value>Brak</option>
                                 <option value="2">2.0</option>
                                 <option value="3">3.0</option>
                                 <option value="3.5">3.5</option>
@@ -122,7 +127,7 @@
                     <form th:action="${'/projekty/grade/'+projekt.getId()}">
                         <div class="input-group">
                             <select class="form-select" name="mark" id="input-mark" disabled>
-                                <option selected>Rozwiń...</option>
+                                <option disabled selected value>Brak</option>
                                 <option value="2">2.0</option>
                                 <option value="3">3.0</option>
                                 <option value="3.5">3.5</option>
