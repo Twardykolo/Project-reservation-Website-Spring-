@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,7 +43,7 @@ public class StudentService {
                 .login(
                         loginService.createLogin(new LoginRequest(studentRequest))
                 )
-                .email(studentRequest.getEmail())
+                .email(studentRequest.getEmail().toLowerCase(Locale.ROOT))
                 .nrAlbum(studentRequest.getNrAlbum())
                 .build();
         Student savedStudent = studentRepository.save(student);
