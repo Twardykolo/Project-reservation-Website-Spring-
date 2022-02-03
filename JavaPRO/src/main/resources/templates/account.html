@@ -7,7 +7,22 @@
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
+    <script>
+        function change(id){
+            var elemz = document.getElementById("zmien"+id);
+            var elempob = document.getElementById("pobierz"+id);
+            var elemp = document.getElementById("przeslij"+id);
+            var elemm = document.getElementById("input-file"+id);
+            var elemd = document.getElementById("dziadostwo"+id);
+            elemz.style.display = "none";
+            elempob.style.display = "none";
+            elemp.style.display = "inline";
+            elemm.style.display = "unset";
+            elemd.style.display = "unset";
+        }
+    </script>
 </head>
+
 <body>
 
 <!--Navigation-->
@@ -29,51 +44,73 @@
 <div class="container-fluid">
     <table class="table table-hover table-account" th:each="projekt, i : ${projekty}">
         <tbody class="text-center">
-        <tr class="thead-dark">
-            <h3 class="text-center" th:text="${'Informacje o projekcie #' + {i.index+1}}"></h3>
-        </tr>
-        <tr>
-            <th>Nazwa</th>
-            <td th:text="${projekt.getName()}">-</td>
-        </tr>
-        <tr>
-            <th>Opis</th>
-            <td th:text="${projekt.getTemat().getDescription()}"></td>
-        </tr>
-        <tr>
-            <th>Termin końcowy</th>
-            <td th:text="${projekt.getDeadline()}"></td>
-        </tr>
-        <tr>
-            <th>Data oddania</th>
-            <td th:if="${projekt.getSubmissionDate()==null}">
-                Nie oddano
-            </td>
-            <td th:text="${projekt.getSubmissionDate()}"></td>
-        </tr>
-        <tr>
-            <th style="vertical-align: middle;">Plik</th>
-            <td th:if="${projekt.getFileUrl()==null}">
-                <form th:action="${'/uploadFile/'+projekt.getId()}" method="post" enctype="multipart/form-data">
-                    <div class="input-group">
-                        <input type="file" class="form-control" id="inputGroupFile" aria-describedby="inputGroupFileAddon" aria-label="Upload" name="file" required/>
-                        <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon">Prześlij</button>
+            <tr class="thead-dark">
+                <h3 class="text-center" th:text="${'Informacje o projekcie #' + {i.index+1}}"></h3>
+            </tr>
+            <tr>
+                <th>Nazwa</th>
+                <td th:text="${projekt.getName()}">-</td>
+            </tr>
+            <tr>
+                <th>Opis</th>
+                <td th:text="${projekt.getTemat().getDescription()}"></td>
+            </tr>
+            <tr>
+                <th>Skład zespołu</th>
+                <td>
+                    <ul>
+                        <li th:each="student : ${projekt.getStudenci()}" th:text="${student.getName()}+' '+${student.getSurname()}"></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th>Termin końcowy</th>
+                <td th:text="${projekt.getDeadline()}"></td>
+            </tr>
+            <tr>
+                <th>Data oddania</th>
+                <td th:if="${projekt.getSubmissionDate()==null}">
+                    Nie oddano
+                </td>
+                <td th:text="${projekt.getSubmissionDate()}"></td>
+            </tr>
+            <tr>
+                <th style="vertical-align: middle;">Plik</th>
+                <td th:if="${projekt.getFileUrl()==null}">
+                    <form th:action="${'/uploadFile/'+projekt.getId()}" method="post" enctype="multipart/form-data">
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="inputGroupFile" aria-describedby="inputGroupFileAddon" aria-label="Upload" name="file" required/>
+                            <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon">Prześlij</button>
+                        </div>
+                    </form>
+                </td>
+                <td th:if="${projekt.getFileUrl()!=null}">
+                    <div class="input-group flex-wysrodkuj">
+                        <a th:href="${projekt.getFileUrl()}" th:id="pobierz+${projekt.getId()}">
+                            <button class="btn btn-sm btn-primary">Pobierz plik</button>
+                        </a>
+                        <a th:if="${projekt.getMark()==null}">
+                            <button class="btn btn-sm btn-primary input-group-text" for="input-file" th:id="zmien+${projekt.getId()}" type="submit"
+                                    th:onclick="|event.preventDefault(); change('${projekt.getId()}');|" style="border-radius: 0px 4px 4px 0px;">Zamień</button>
+
+                        </a>
                     </div>
-                </form>
-            </td>
-            <td th:if="${projekt.getFileUrl()!=null}">
-                <a th:href="${projekt.getFileUrl()}">
-                    <button class="btn btn-sm btn-primary">Pobierz plik</button>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <th>Ocena</th>
-            <td th:if="${projekt.getMark()==null}">
-                Nie oceniono
-            </td>
-            <td th:text="${projekt.getMark()}"></td>
-        </tr>
+                    <form th:action="${'/uploadFile/'+projekt.getId()}" method="post" enctype="multipart/form-data" th:id="dziadostwo+${projekt.getId()}" style="display: none">
+                            <div class="input-group">
+                                <input type="file" class="form-control form-control-sm" th:id="input-file+${projekt.getId()}" name="file" style="display: none" required/>
+
+                                <button class="btn btn-sm btn-primary input-group-text" for="input-file" th:id="przeslij+${projekt.getId()}" style="display: none">Prześlij</button>
+                            </div>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <th>Ocena</th>
+                <td th:if="${projekt.getMark()==null}">
+                    Nie oceniono
+                </td>
+                <td th:text="${projekt.getMark()}"></td>
+            </tr>
         </tbody>
     </table>
 </div>

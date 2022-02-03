@@ -13,8 +13,16 @@ html, body{
 }
 .nav-link{
     fint-size:1.1em !important;
-    color: #373737;
+    color: rgba(0,0,0,.55);
 }
+.kto-to:hover{
+    color: rgba(0,0,0,.55);
+    user-select: none;
+}
+.kto-to{
+    user-select: none;
+}
+
 .btn-primary{
     background-color: #282866;
     border: 1px solid #282866;
