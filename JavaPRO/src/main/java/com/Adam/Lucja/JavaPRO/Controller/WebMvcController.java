@@ -53,6 +53,8 @@ class WebMvcController {
             String nrAlbumu = principal.getName();
             model.addAttribute("login",nrAlbumu);
             Student student = studentService.getStudentByNrAlbumu(nrAlbumu);
+            model.addAttribute("imie",student.getName());
+            model.addAttribute("nazwisko",student.getSurname());
             List<ProjektResponse> projektyStudenta = projekt2StudentService.getProjektByStudentId(student.getId());
             for (ProjektResponse projekt : projektyStudenta) {
                 tematyStudenta.add(tematService.getTemat(projekt.getTemat().getId()).getId());
@@ -89,6 +91,8 @@ class WebMvcController {
         Student student = studentService.getStudentByNrAlbumu(nrAlbumu);
         List<ProjektResponse> projektyStudenta = projekt2StudentService.getProjektByStudentId(student.getId());
         model.addAttribute("login",nrAlbumu);
+        model.addAttribute("imie",student.getName());
+        model.addAttribute("nazwisko",student.getSurname());
         model.addAttribute("projekty", projektyStudenta);
         return "account";
     }
