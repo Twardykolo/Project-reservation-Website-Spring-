@@ -32,7 +32,9 @@ public class Projekt2StudentService {
         List<Projekt2Student> listaProjektow2Student = projekt2StudentRepository.findAllByStudentId(id);
         List<ProjektResponse> wynikFunkcji = new ArrayList<>();
         for(Projekt2Student projekt2Student: listaProjektow2Student){
-            wynikFunkcji.add(new ProjektResponse(projekt2Student.getProjekt()));
+            ProjektResponse temp =new ProjektResponse(projekt2Student.getProjekt());
+            temp.setStudenci(getStudenciByProjektId(temp.getId()));
+            wynikFunkcji.add(temp);
         }
         return wynikFunkcji;
     }
