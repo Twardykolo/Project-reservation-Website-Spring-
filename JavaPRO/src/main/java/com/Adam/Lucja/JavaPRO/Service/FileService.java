@@ -13,6 +13,9 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.stream.Stream;
 
+/**
+ * Klasa serwisowa do obsługi plików ({@link File})
+ */
 @Service
 public class FileService {
     @Autowired
