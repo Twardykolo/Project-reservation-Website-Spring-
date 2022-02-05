@@ -34,7 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             String jwt = getJwtFromRequest(request);
             if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
-                String nrAlbum = jwtTokenProvider.getNrAlbumFromJWT(jwt).toLowerCase(Locale.ROOT);
+                String nrAlbum = jwtTokenProvider.getUsernameFromJWT(jwt).toLowerCase(Locale.ROOT);
                 UserDetails userDetails = loginDetailsService.loadUserByUsername(nrAlbum.toLowerCase(Locale.ROOT));
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

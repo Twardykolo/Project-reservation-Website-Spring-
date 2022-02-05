@@ -30,7 +30,7 @@ public class StudentController {
     }
     @PostMapping
     public ResponseEntity<?> createStudent(@RequestBody StudentRequest studentRequest){
-        return authController.registerStudent(studentRequest);
+        return ResponseEntity.ok(studentService.createStudent(studentRequest));
     }
     @PutMapping("{id}")
     public ResponseEntity<StudentResponse> updateStudent(@RequestBody StudentRequest studentRequest, @PathVariable("id") Long id) {

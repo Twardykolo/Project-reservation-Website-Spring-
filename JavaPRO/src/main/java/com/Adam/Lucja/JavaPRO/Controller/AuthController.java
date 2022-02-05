@@ -37,8 +37,4 @@ public class AuthController {
         return ResponseEntity.ok(authService.getAuthToken(loginRequest));
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<?> registerStudent(@Valid @RequestBody StudentRequest studentRequest){
-        return ResponseEntity.ok(authService.registerStudent(studentRequest));
-    }
 }

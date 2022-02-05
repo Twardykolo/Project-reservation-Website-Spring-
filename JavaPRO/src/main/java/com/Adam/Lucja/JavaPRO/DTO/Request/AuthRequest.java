@@ -20,8 +20,8 @@ public class AuthRequest {
     @NotNull
     private String password;
 
-    public AuthRequest(StudentRequest studentRequest){
-        this.username = studentRequest.getNrAlbum();
-        this.password=studentRequest.getPassword();
+    public AuthRequest(LoginRequest loginRequest){
+        this.username = loginRequest.getUsername();
+        this.password=loginRequest.getPassword();
     }
 }

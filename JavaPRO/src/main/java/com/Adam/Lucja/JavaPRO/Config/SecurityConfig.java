@@ -53,14 +53,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .cors().and().csrf().disable().authorizeHttpRequests()
                 .antMatchers("/api/auth/**").permitAll().anyRequest().permitAll().and()
-                        .formLogin().loginPage("/login").and()
+                        .formLogin().loginPage("/login").failureUrl("/loginZepsuty").and()
                         .logout().logoutSuccessUrl("/").and()
                         .exceptionHandling().accessDeniedPage("/index");
-//                        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-//                        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                        .and().authorizeRequests().antMatchers("**favicon.ico").permitAll()
-//                        .antMatchers("/**").permitAll()
-//                        .permitAll();//zmienić permitAll na authenticated żeby zabezpieczenia wróciły
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

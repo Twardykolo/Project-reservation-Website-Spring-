@@ -21,6 +21,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.context.SecurityContext;
 
 import java.util.HashSet;
 import java.util.List;
@@ -29,6 +30,9 @@ import java.util.stream.Collectors;
 
 import static com.Adam.Lucja.JavaPRO.Util.ERole.ROLE_ADMIN;
 
+/**
+ * Klasa serwisowa związana z autoryzacją
+ */
 @Service
 public class AuthService {
 
@@ -50,45 +54,26 @@ public class AuthService {
     @Autowired
     JWTTokenProvider jwtTokenProvider;
 
-    public Object registerStudent(StudentRequest studentRequest) {
-        if(studentRepository.existsByNrAlbum(studentRequest.getNrAlbum()))
-            return new MessageResponse("Taki użytkownik już istnieje");
-        if(studentRepository.existsByEmail(studentRequest.getEmail()))
-            return new MessageResponse("Ten email już został wykorzystany");
-        StudentResponse studentResponse = studentService.createStudent(studentRequest);
-        Set<String> strRoles = new HashSet<>();
-        Role role = roleRepository.findByName(ERole.ROLE_USER).get();
-        strRoles.add(role.toString());
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        Login login = loginRepository.findByUsername(studentResponse.getNrAlbum()).get();
-        login.setRoles(roles);
-        loginRepository.save(login);
-        return studentResponse;
-    }
-
-    public AuthResponse getAuthToken(AuthRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtTokenProvider.generateToken(authentication);
-        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetailsImpl.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-        return new AuthResponse(userDetailsImpl.getId(), jwt, userDetailsImpl.getUsername(), userDetailsImpl.getEmail(), roles);
-    }
-
-    public Object getAdminToken(AuthRequest authRequest) {
+    /**
+     * Metoda generująca token autoryzacji JWT na podstawie danych logowania przekazanych poprzez obiekt {@link AuthRequest}.
+     * Login i hasło użyte do logowania zostają wprowadzone do funkcji authenticate {@link AuthenticationManager}a (Spring Security),
+     * a w odpowiedzi otrzymany zostaje obiekt klasy {@link Authentication} będący reprezentacją autoryzacji.
+     * Następnie autoryzacja ta zostaje przekazana do zabezpieczeń (Spring Security) poprzez
+     * wyciągnięcie aktualnego {@link SecurityContext} za pomocą {@link SecurityContextHolder}a i wywołaniu settera
+     * dla pola autenthication. Następnie wygenerowany zostaje token JWT przy użyciu klasy {@link JWTTokenProvider}.
+     * Na podstawie wcześniej otrzymanej reprezentacji autoryzacji, uzyskane zostają także dane logowanego użytkownika
+     * w postaci obiektu {@link UserDetailsImpl}. Kolejnie uzyskana zostaje lista ról przypisanych użytkownikowi i zebrana do
+     * {@link List}y składającej się z obiektów typu {@link String}. Finalnie zwrócony zostaje obiekt zwrotny typu {@link AuthResponse}
+     * składający się z danych użytkownika, tokenu JWT, ról użytkownika.
+     * @param authRequest Obiekt przekazujący dane logowania
+     * @return {@link AuthResponse}
+     */
+    public AuthResponse getAuthToken(AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authentication.getPrincipal();
-        if(!userDetailsImpl.getAuthorities().stream().anyMatch(
-                a -> a.getAuthority().equals("ROLE_ADMIN")
-        ))
-            return new MessageResponse("Brak uprawnień administratora");
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtTokenProvider.generateToken(authentication);
+        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetailsImpl.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());

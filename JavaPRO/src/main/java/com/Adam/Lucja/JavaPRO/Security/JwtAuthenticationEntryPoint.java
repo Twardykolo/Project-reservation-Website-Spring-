@@ -16,6 +16,14 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationEntryPoint.class);
 
+    /**
+     * Funkcja wywoływana przypadku kiedy do wykonania akcji, którą chciał podjąć użytkownik, brakuje mu autoryzacji.
+     * @param request
+     * @param response
+     * @param e
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void commence(final HttpServletRequest request,
                          final HttpServletResponse response,

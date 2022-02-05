@@ -7,6 +7,11 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 public class MD5Generator {
+    /**
+     * Funkcja szyfrująca przekazany {@link String} używając szyfrowania md5.
+     * @param data {@link String} do zaszyfrowania
+     * @return {@link String}
+     */
     @SneakyThrows
     public static String getMD5(String data)
     {
