@@ -36,6 +36,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                            response = new String(response.getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
                             Type type = new TypeToken<List<Temat>>() {}.getType();
                             List<Temat> lista = new Gson().fromJson(response,type);
                             String wynik = "";
