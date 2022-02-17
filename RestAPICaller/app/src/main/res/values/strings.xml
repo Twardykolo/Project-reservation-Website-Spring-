@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">RestAPICaller</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Aktualna lista tematów:</string>
+    <string name="reload">Wyślij zapytanie</string>
+
+    <string name="lista_tematów">Tu będzie lista tematów</string>
+</resources>
