@@ -12,7 +12,7 @@ public class Temat {
     public String toString() {
         return "Nazwa tematu: "+name+'\n'+
                 "Opis tematu: "+description+'\n'+
-                "Czy został zarezerwowany: "+isReserved+'\n'+
+                "Czy został zarezerwowany: "+(isReserved?"Tak":"Nie")+'\n'+
                 "Termin ostateczny: "+deadline+'\n'+
                 "\n";
 
