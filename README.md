@@ -12,6 +12,9 @@ Application created as a science project at Rzeszow University of Technology (Po
 - adding topics for logged in administrators
 - grading user's projects for logged in administrators
 - downloading user's files
+- REST endpoint's for CRUD operations
+
+Additionaly included RestAPICaller which is a simple Android app that calls one of the endpoints and displays accuired data.
 
 # Created by
  Adam "Twardykolo" Szałański
